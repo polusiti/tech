@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 98 Portfolio</title>
+    <link rel="stylesheet" href="css/98.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="windows-logo">
+                <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="10" y="10" width="35" height="35" fill="#ff0000"/>
+                  <rect x="55" y="10" width="35" height="35" fill="#00ff00"/>
+                  <rect x="10" y="55" width="35" height="35" fill="#0066ff"/>
+                  <rect x="55" y="55" width="35" height="35" fill="#ffff00"/>
+                </svg>
+            </div>
+            <div class="loading-text">Windows 98</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="desktop" id="desktop" style="display: none;">
+        <!-- My Computer -->
+        <div class="desktop-icon" id="my-computer" style="position: absolute; top: 20px; left: 20px;">
+            <img src="img/computer-icon.svg" alt="My Computer">
+            <span>My Computer</span>
+        </div>
+
+        <!-- Network Neighborhood -->
+        <div class="desktop-icon" id="network" style="position: absolute; top: 20px; left: 100px;">
+            <img src="img/network-icon.svg" alt="Network">
+            <span>Network</span>
+        </div>
+
+        <!-- About Me Folder -->
+        <div class="desktop-icon" id="about-icon" style="position: absolute; top: 120px; left: 20px;">
+            <img src="img/folder-icon.svg" alt="About">
+            <span>About Me</span>
+        </div>
+
+        <!-- Projects Folder -->
+        <div class="desktop-icon" id="projects-icon" style="position: absolute; top: 120px; left: 100px;">
+            <img src="img/folder-icon.svg" alt="Projects">
+            <span>Projects</span>
+        </div>
+
+        <!-- Recycle Bin -->
+        <div class="desktop-icon" id="recycle-bin" style="position: absolute; bottom: 50px; right: 20px;">
+            <img src="img/folder-icon.svg" alt="Recycle Bin">
+            <span>Recycle Bin</span>
+        </div>
+
+        <!-- My Documents -->
+        <div class="desktop-icon" id="my-documents" style="position: absolute; top: 220px; left: 20px;">
+            <img src="img/folder-icon.svg" alt="My Documents">
+            <span>My Documents</span>
+        </div>
+
+        <!-- Games Row -->
+        <div class="desktop-icon" id="solitaire-icon" style="position: absolute; top: 320px; left: 20px;">
+            <img src="img/game-icon.svg" alt="Solitaire">
+            <span>Solitaire</span>
+        </div>
+
+        <div class="desktop-icon" id="minesweeper-icon" style="position: absolute; top: 320px; left: 100px;">
+            <img src="img/game-icon.svg" alt="Minesweeper">
+            <span>Minesweeper</span>
+        </div>
+
+        <div class="desktop-icon" id="calculator-icon" style="position: absolute; top: 320px; left: 180px;">
+            <img src="img/game-icon.svg" alt="Calculator">
+            <span>Calculator</span>
+        </div>
+
+        <div class="desktop-icon" id="notepad-icon" style="position: absolute; top: 320px; left: 260px;">
+            <img src="img/game-icon.svg" alt="Notepad">
+            <span>Notepad</span>
+        </div>
+
+        <div class="desktop-icon" id="clock-icon" style="position: absolute; top: 420px; left: 20px;">
+            <img src="img/game-icon.svg" alt="Clock">
+            <span>Clock</span>
+        </div>
+
+        <div class="desktop-icon" id="paint-icon" style="position: absolute; top: 420px; left: 100px;">
+            <img src="img/game-icon.svg" alt="Paint">
+            <span>Paint</span>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <button class="start-button" id="start-button">
+            <img src="img/start-icon.svg" alt="Start" />
+            <span>Start</span>
+        </button>
+        <div class="start-menu" id="start-menu" style="display: none;">
+            <ul>
+                <li id="start-menu-about">
+                    <img src="img/folder-icon.svg" alt="About">
+                    <span>About Me</span>
+                </li>
+                <li id="start-menu-projects">
+                    <img src="img/folder-icon.svg" alt="Projects">
+                    <span>Projects</span>
+                </li>
+                <li id="start-menu-settings">
+                    <img src="img/folder-icon.svg" alt="Settings">
+                    <span>Settings</span>
+                </li>
+                <li id="start-menu-shutdown">
+                    <img src="img/folder-icon.svg" alt="Shutdown">
+                    <span>Shut Down</span>
+                </li>
+            </ul>
+        </div>
+        <div class="system-tray">
+            <div class="tray-icons">
+                <div class="tray-icon" id="volume-icon">🔊</div>
+                <div class="tray-icon" id="connection-icon">🌐</div>
+            </div>
+            <div class="clock" id="clock">12:00 AM</div>
+        </div>
+    </div>
+
+    <!-- Window template -->
+    <div class="window" style="display: none;">
+        <div class="title-bar">
+            <div class="title-bar-text">Window Title</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <p>Window content goes here.</p>
+        </div>
+    </div>
+
+    <!-- Context Menu (hidden by default) -->
+    <div class="context-menu" id="context-menu" style="display: none;">
+        <ul>
+            <li id="ctx-open">Open</li>
+            <li id="ctx-explore">Explore</li>
+            <li id="ctx-separator" style="height: 1px; background: #808080; margin: 4px 0;"></li>
+            <li id="ctx-cut">Cut</li>
+            <li id="ctx-copy">Copy</li>
+            <li id="ctx-paste">Paste</li>
+            <li id="ctx-separator2" style="height: 1px; background: #808080; margin: 4px 0;"></li>
+            <li id="ctx-delete">Delete</li>
+            <li id="ctx-rename">Rename</li>
+            <li id="ctx-separator3" style="height: 1px; background: #808080; margin: 4px 0;"></li>
+            <li id="ctx-properties">Properties</li>
+        </ul>
+    </div>
+
+    <!-- Screensaver -->
+    <div id="screensaver" style="display: none;">
+        <div id="scrolling-text"></div>
+        <canvas id="starfield"></canvas>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

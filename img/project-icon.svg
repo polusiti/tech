@@ -1,0 +1,33 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Project icon - document with code -->
+  <defs>
+    <linearGradient id="docGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0f0f0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Document background -->
+  <rect x="4" y="2" width="20" height="26" fill="url(#docGrad)" stroke="#808080" stroke-width="1" rx="1"/>
+
+  <!-- Folded corner -->
+  <path d="M20 2 L20 8 L24 8 Z" fill="#d0d0d0" stroke="#808080" stroke-width="1"/>
+
+  <!-- Code lines -->
+  <line x1="7" y1="10" x2="15" y2="10" stroke="#0000ff" stroke-width="1"/>
+  <line x1="16" y1="10" x2="21" y2="10" stroke="#ff0000" stroke-width="1"/>
+
+  <line x1="7" y1="14" x2="11" y2="14" stroke="#008000" stroke-width="1"/>
+  <line x1="12" y1="14" x2="14" y2="14" stroke="#000000" stroke-width="1"/>
+  <line x1="15" y1="14" x2="19" y2="14" stroke="#ff0000" stroke-width="1"/>
+
+  <line x1="7" y1="18" x2="13" y2="18" stroke="#0000ff" stroke-width="1"/>
+  <line x1="14" y1="18" x2="18" y2="18" stroke="#008000" stroke-width="1"/>
+
+  <line x1="7" y1="22" x2="12" y2="22" stroke="#ff0000" stroke-width="1"/>
+  <line x1="13" y1="22" x2="20" y2="22" stroke="#000000" stroke-width="1"/>
+
+  <!-- Highlight -->
+  <line x1="5" y1="3" x2="5" y2="27" stroke="#ffffff" stroke-width="1"/>
+  <line x1="5" y1="3" x2="23" y2="3" stroke="#ffffff" stroke-width="1"/>
+</svg>

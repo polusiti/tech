@@ -1,0 +1,23 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- Folder icon -->
+  <defs>
+    <linearGradient id="folderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffff00;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e6c200;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Folder tab -->
+  <path d="M2 6 L2 4 L8 4 L10 6 L30 6 L30 8 L2 8 Z" fill="url(#folderGrad)" stroke="#c0c0c0" stroke-width="1"/>
+
+  <!-- Folder body -->
+  <rect x="2" y="8" width="28" height="18" fill="url(#folderGrad)" stroke="#c0c0c0" stroke-width="1"/>
+
+  <!-- Folder edge highlight -->
+  <line x1="3" y1="9" x2="29" y2="9" stroke="#ffff99" stroke-width="1"/>
+  <line x1="3" y1="9" x2="3" y2="25" stroke="#ffff99" stroke-width="1"/>
+
+  <!-- Folder shadow -->
+  <line x1="29" y1="9" x2="29" y2="25" stroke="#999999" stroke-width="1"/>
+  <line x1="3" y1="25" x2="29" y2="25" stroke="#999999" stroke-width="1"/>
+</svg>

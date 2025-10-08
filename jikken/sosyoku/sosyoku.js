@@ -127,14 +127,6 @@ class SosyokuRenderer {
     }
 
     setupInteractions() {
-        // テーマ切り替えボタン
-        const themeButton = document.getElementById('themeCyclerBtn');
-        if (themeButton) {
-            themeButton.addEventListener('click', () => {
-                this.cycleTheme();
-            });
-        }
-
         // メニュートグル
         const menuToggle = document.querySelector('.menu-toggle');
         if (menuToggle) {
@@ -145,77 +137,6 @@ class SosyokuRenderer {
 
         // スムーズスクロール
         this.setupSmoothScroll();
-    }
-
-    cycleTheme() {
-        const body = document.body;
-        const themes = ['light', 'dark', 'sepia'];
-        const themeButton = document.getElementById('themeCyclerBtn');
-
-        // 現在のテーマを判定
-        let currentTheme = 'light';
-        if (body.classList.contains('dark-mode')) {
-            currentTheme = 'dark';
-        } else if (body.classList.contains('sepia-mode')) {
-            currentTheme = 'sepia';
-        }
-
-        // 次のテーマを設定
-        const currentIndex = themes.indexOf(currentTheme);
-        const nextIndex = (currentIndex + 1) % themes.length;
-        const newTheme = themes[nextIndex];
-
-        // クラスをリセットして設定
-        body.classList.remove('dark-mode', 'sepia-mode');
-        if (newTheme !== 'light') {
-            body.classList.add(newTheme + '-mode');
-        }
-
-        // ボタンのアイコンを更新
-        this.updateThemeButton(newTheme);
-
-        // 背景アニメーションを更新
-        this.updateBackground(newTheme);
-    }
-
-    updateThemeButton(theme) {
-        const themeButton = document.getElementById('themeCyclerBtn');
-        if (themeButton) {
-            if (theme === 'dark') {
-                themeButton.innerHTML = '📖';
-            } else if (theme === 'sepia') {
-                themeButton.innerHTML = '☀️';
-            } else {
-                themeButton.innerHTML = '🌙';
-            }
-        }
-    }
-
-    updateBackground(theme) {
-        const starCanvas = document.getElementById('starry-sky-canvas');
-        const fishCanvas = document.getElementById('fish-canvas');
-        const advancedFishContainer = document.getElementById('jsi-flying-fish-container');
-
-        // すべての背景を一度非表示
-        if (starCanvas) starCanvas.style.display = 'none';
-        if (fishCanvas) fishCanvas.style.display = 'none';
-        if (advancedFishContainer) advancedFishContainer.style.display = 'none';
-
-        // テーマに応じて背景を表示
-        if (theme === 'sepia') {
-            if (fishCanvas) fishCanvas.style.display = 'block';
-        } else if (theme === 'dark') {
-            if (window.advancedFishAnimation) {
-                if (advancedFishContainer) {
-                    advancedFishContainer.style.display = 'block';
-                    if (!window.advancedFishAnimation.isEnabled) {
-                        window.advancedFishAnimation.start();
-                    }
-                }
-            }
-        } else {
-            if (starCanvas) starCanvas.style.display = 'block';
-        }
     }
 
     toggleMobileMenu() {
@@ -250,40 +171,4 @@ document.addEventListener('DOMContentLoaded', function() {
         // 親スクリプトがあればそのレンダラーを使用
         window.sosyokuRenderer = new SosyokuRenderer();
     }
-
-    // テーマをlocalStorageから復元
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    const body = document.body;
-
-    if (savedTheme !== 'light') {
-        body.classList.add(savedTheme + '-mode');
-    }
-
-    // 背景を初期化
-    if (window.sosyokuRenderer) {
-        window.sosyokuRenderer.updateThemeButton(savedTheme);
-        window.sosyokuRenderer.updateBackground(savedTheme);
-    }
-
-    // 強制的にテーマを再適用して表示を修正
-    setTimeout(() => {
-        console.log('Forcing theme refresh for sosyoku page');
-        if (body.classList.contains('dark-mode')) {
-            body.classList.remove('dark-mode');
-            void body.offsetWidth; // reflow
-            body.classList.add('dark-mode');
-        }
-        if (body.classList.contains('sepia-mode')) {
-            body.classList.remove('sepia-mode');
-            void body.offsetWidth; // reflow
-            body.classList.add('sepia-mode');
-        }
-    }, 100);
 });
-
-// 既存のテーマ切り替え関数を上書き
-window.cycleTheme = function() {
-    if (window.sosyokuRenderer) {
-        window.sosyokuRenderer.cycleTheme();
-    }
-};

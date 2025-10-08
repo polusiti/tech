@@ -11,85 +11,24 @@ footer,
     min-height: 100vh;
 }
 
-/* 動的背景キャンバス */
+/* 動的背景キャンバス - sosyokuページでは無効化 */
 #starry-sky-canvas, #fish-canvas, #jsi-flying-fish-container {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    z-index: -1 !important;
-    pointer-events: none !important;
+    display: none !important;
 }
 
-#fish-canvas {
-    display: none;
-}
-
-#jsi-flying-fish-container {
-    display: none;
-}
-
-#jsi-flying-fish-container canvas {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-}
-
-/* テーマ切り替えボタン */
+/* テーマ切り替えボタン - sosyokuページでは無効化 */
 .theme-cycler-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 100000;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    background: #ffffff;
-    color: #555;
+    display: none !important;
 }
 
-.theme-cycler-button:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-}
-
-/* Live2D 配置 */
+/* Live2D 配置 - sosyokuページでは無効化 */
 #live2d-widget {
-    bottom: -8vh !important;
-    right: -10px !important;
+    display: none !important;
 }
 
-@media (max-width: 768px) {
-    #live2d-widget {
-        bottom: -11vh !important;
-        right: -20px !important;
-    }
-}
-
-/* APlayer 配置 */
+/* APlayer 配置 - sosyokuページでは無効化 */
 .aplayer {
-    position: fixed !important;
-    bottom: 20px !important;
-    left: 20px !important;
-    z-index: 9998 !important;
-    margin: 0 !important;
-    max-width: 300px !important;
-}
-
-.aplayer-body {
-    background: rgba(0, 0, 0, 0.8) !important;
-    backdrop-filter: blur(10px) !important;
+    display: none !important;
 }
 
 /* ヘッダースタイル */

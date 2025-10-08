@@ -54,6 +54,124 @@
                     </div>
                 </div>
 
+                <!-- tcolorbox 実践デモ -->
+                <div class="shortcode-demo-section">
+                    <h2>tcolorbox 実践的な使用例</h2>
+
+                    <div class="tcolorbox" data-tcolorbox-title="数式の定理" data-tcolorbox-subtitle="ピタゴラスの定理">
+                        <p>直角三角形において、斜辺の二乗は他の二辺の二乗の和に等しい。</p>
+                        <div class="math-display">a² + b² = c²</div>
+                        <p>ここで、cは斜辺の長さ、aとbは他の二辺の長さである。</p>
+                    </div>
+
+                    <div class="tcolorbox tcolorbox-blue" data-tcolorbox-title="プログラミングのヒント" data-tcolorbox-subtitle="コード例">
+                        <p>JavaScriptでの非同期処理の例：</p>
+                        <pre><code>async function fetchData() {
+    try {
+        const response = await fetch('/api/data');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="tcolorbox" data-tcolorbox-title="引用と参考文献" data-tcolorbox-subtitle="学術文献">
+                        <blockquote>
+                            「 simplicity is the ultimate sophistication.」 - Leonardo da Vinci
+                        </blockquote>
+                        <p>この言葉は、最もシンプルな解決策が最も洗練された解決策であることを示しています。</p>
+                    </div>
+
+                    <div class="tcolorbox tcolorbox-red" data-tcolorbox-title="重要な注意事項" data-tcolorbox-subtitle="安全対策">
+                        <ul>
+                            <li>常にデータのバックアップを作成してください</li>
+                            <li>不審なリンクはクリックしないでください</li>
+                            <li>定期的なパスワード変更を推奨します</li>
+                            <li>二要素認証を有効にしてください</li>
+                        </ul>
+                    </div>
+
+                    <div class="tcolorbox" data-tcolorbox-title="学習メモ" data-tcolorbox-subtitle="今日の気づき">
+                        <p>tcolorboxの装飾は、文書の視覚的な階層を明確にし、読者の理解を助ける効果があります。</p>
+                        <p>特に学術的な文書や技術文書での使用に適しています。</p>
+                    </div>
+                </div>
+
+                <!-- tcolorbox と他機能の組み合わせ -->
+                <div class="shortcode-demo-section">
+                    <h2>tcolorbox と他機能の組み合わせ</h2>
+
+                    <div class="tcolorbox" data-tcolorbox-title="複合的なデモ" data-tcolorbox-subtitle="装飾の組み合わせ">
+                        <p>このボックス内には、様々な装飾要素が含まれています：</p>
+                        <ul>
+                            <li>数式: <span class="math-inline">E = mc²</span></li>
+                            <li>コード: <code>console.log("Hello")</code></li>
+                            <li>強調テキスト: <strong>重要なポイント</strong></li>
+                        </ul>
+                        <div class="math-display">∫₀^∞ e^(-x²) dx = √π / 2</div>
+                    </div>
+
+                    <div class="tcolorbox tcolorbox-blue" data-tcolorbox-title="見出しとの組み合わせ" data-tcolorbox-subtitle="階層構造">
+                        <p>この後に続く見出しと組み合わせて使用できます：</p>
+                    </div>
+
+                    <div class="heading-demo" data-heading-type="ascb_heading" data-heading-attrs='{"title":"関連トピック","style":"A","star":"true","underline":"true"}'></div>
+
+                    <p>tcolorboxと見出しシステムを組み合わせることで、より構造的な文書を作成できます。</p>
+
+                    <div class="column-demo" data-column-type="column" data-column-attrs='{"type":"note","title":"補足情報"}'>
+                        tcolorboxと同様に、カラムボックスも補足情報の表示に役立ちます。
+                        <ul>
+                            <li>色の使い分けで内容の種類を示す</li>
+                            <li>視覚的な階層を作成する</li>
+                            <li>読者の注意を引く</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- tcolorbox 使用ガイド -->
+                <div class="shortcode-demo-section">
+                    <h2>tcolorbox 使用ガイド</h2>
+
+                    <div class="tcolorbox" data-tcolorbox-title="基本的な使い方" data-tcolorbox-subtitle="HTML構造">
+                        <pre><code>&lt;div class="tcolorbox"
+     data-tcolorbox-title="タイトル"
+     data-tcolorbox-subtitle="サブタイトル"&gt;
+    ここにコンテンツを記述
+&lt;/div&gt;</code></pre>
+                    </div>
+
+                    <div class="tcolorbox tcolorbox-blue" data-tcolorbox-title="カラーバリエーション" data-tcolorbox-subtitle="クラス指定">
+                        <p>利用可能な色のバリエーション：</p>
+                        <ul>
+                            <li><strong>基本</strong>: <code>class="tcolorbox"</code> (灰色)</li>
+                            <li><strong>青色</strong>: <code>class="tcolorbox tcolorbox-blue"</code></li>
+                            <li><strong>赤色</strong>: <code>class="tcolorbox tcolorbox-red"</code></li>
+                        </ul>
+                    </div>
+
+                    <div class="tcolorbox" data-tcolorbox-title="ベストプラクティス" data-tcolorbox-subtitle="使用例">
+                        <ul>
+                            <li><strong>定理・定義</strong>: 数学・科学の定理を強調</li>
+                            <li><strong>コード例</strong>: プログラミングのヒントや例示</li>
+                            <li><strong>重要注意</strong>: 赤色を使って警告や注意を表示</li>
+                            <li><strong>補足情報</strong>: 青色で追加情報を提供</li>
+                            <li><strong>引用</strong>: 文献や名言の引用</li>
+                        </ul>
+                    </div>
+
+                    <div class="tcolorbox tcolorbox-red" data-tcolorbox-title="注意点" data-tcolorbox-subtitle="制約事項">
+                        <p>現在の実装での注意点：</p>
+                        <ul>
+                            <li>タイトルが長すぎる場合は自動的に省略されます</li>
+                            <li>ネストされたtcolorboxは非推奨です</li>
+                            <li>モバイル表示では装飾が少し簡略化されます</li>
+                        </ul>
+                    </div>
+                </div>
+
                 <!-- asb19 ボックスデモ -->
                 <div class="shortcode-demo-section">
                     <h2>asb19 ボックスシステム</h2>

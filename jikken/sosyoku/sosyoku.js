@@ -10,6 +10,9 @@ class SosyokuRenderer {
     }
 
     renderShortcodes() {
+        // tcolorbox をレンダリング
+        this.renderTColorBoxes();
+
         // asb19 ボックスをレンダリング
         this.renderAsb19Boxes();
 
@@ -117,6 +120,28 @@ class SosyokuRenderer {
                     </div>
                 `;
             }
+        });
+    }
+
+    renderTColorBoxes() {
+        const boxes = document.querySelectorAll('.tcolorbox');
+        boxes.forEach(box => {
+            const title = box.dataset.tcolorboxTitle || '';
+            const subtitle = box.dataset.tcolorboxSubtitle || '';
+            const content = box.innerHTML;
+
+            // タイトルを作成
+            let titleHtml = this.escapeHtml(title);
+            if (subtitle) {
+                titleHtml += '<span class="tcolorbox-subtitle">〈' + this.escapeHtml(subtitle) + '〉</span>';
+            }
+
+            // ボックスを再構築
+            box.innerHTML = `
+                <div class="tcolorbox-corner"></div>
+                <div class="tcolorbox-title">${titleHtml}</div>
+                <div class="tcolorbox-content">${content}</div>
+            `;
         });
     }
 

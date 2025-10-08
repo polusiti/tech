@@ -217,6 +217,183 @@ body.sepia-mode .theme-cycler-button {
     color: #8b4513;
 }
 
+/* WordPressショートコードコンポーネントスタイル */
+
+/* --- [A] The Box System (asb19) --- */
+.asb19-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.asb19-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.asb19-title-wrapper {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.asb19-subtitle {
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-left: 10px;
+    font-weight: normal;
+}
+
+.asb19-content {
+    color: #fff;
+    line-height: 1.6;
+}
+
+/* ダークモードでのasb19 */
+body.dark-mode .asb19-box {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .asb19-title-wrapper {
+    color: #e0e0e0;
+}
+
+/* セピアモードでのasb19 */
+body.sepia-mode .asb19-box {
+    background: rgba(139, 69, 19, 0.2);
+    border-color: rgba(139, 69, 19, 0.3);
+}
+
+body.sepia-mode .asb19-title-wrapper {
+    color: #8b4513;
+}
+
+/* --- [B] The Heading System (ascb_heading) --- */
+.ascb-heading-container {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.ascb-heading-container:hover {
+    transform: translateX(5px);
+}
+
+.ascb-icon-wrapper {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.ascb-shape {
+    position: absolute;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.shape-a {
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    top: 0;
+    left: 0;
+}
+
+.shape-b {
+    width: 15px;
+    height: 15px;
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    bottom: 0;
+    right: 0;
+}
+
+.ascb-text {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* スタイルバリエーション */
+.ascb-heading-container.style-A .shape-a {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+}
+
+.ascb-heading-container.style-A .shape-b {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+}
+
+.ascb-heading-container.style-B .shape-a {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+}
+
+.ascb-heading-container.style-B .shape-b {
+    background: linear-gradient(45deg, #f093fb, #f5576c);
+}
+
+.ascb-heading-container.style-C .shape-a {
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+}
+
+.ascb-heading-container.style-C .shape-b {
+    background: linear-gradient(45deg, #43e97b, #38f9d7);
+}
+
+/* 星付きスタイル */
+.ascb-heading-container.is-starred .ascb-icon-wrapper::before {
+    content: '⭐';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 16px;
+    animation: starPulse 2s infinite;
+}
+
+/* 下線付きスタイル */
+.ascb-heading-container.has-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    animation: underlineShine 3s infinite;
+}
+
+/* アニメーション */
+@keyframes starPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+@keyframes underlineShine {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* ダークモードでの見出し */
+body.dark-mode .ascb-text {
+    color: #e0e0e0;
+}
+
+/* セピアモードでの見出し */
+body.sepia-mode .ascb-text {
+    color: #8b4513;
+}
+
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
     .title {
@@ -250,5 +427,25 @@ body.sepia-mode .theme-cycler-button {
         width: 40px;
         height: 40px;
         font-size: 20px;
+    }
+
+    .ascb-icon-wrapper {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+
+    .ascb-shape.shape-a {
+        width: 15px;
+        height: 15px;
+    }
+
+    .ascb-shape.shape-b {
+        width: 12px;
+        height: 12px;
+    }
+
+    .ascb-text {
+        font-size: 1.2em;
     }
 }

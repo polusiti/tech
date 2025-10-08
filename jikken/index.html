@@ -113,8 +113,93 @@
         <div class="info">
             <p>Live2D 初音ミクモデル</p>
             <p>クリックしてインタラクション！</p>
+            <p>🎆 クリックエフェクト付き！</p>
         </div>
     </div>
+
+    <!-- =================================================================== -->
+    <!-- WordPress専用 弾けるクリックエフェクト (完全独立・高安定性版) -->
+    <!-- =================================================================== -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // このスクリプトが既に実行済みかチェック
+        if (window.hasClickEffect) return;
+        window.hasClickEffect = true;
+
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        document.body.appendChild(canvas);
+
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = '999999';
+
+        let particles = [];
+        const colors = ["#FF1461", "#18FF92", "#5A87FF", "#FBF38C"];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = Math.random() * 5 + 2;
+                this.life = 1;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 4 + 2;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.gravity = 0.1;
+            }
+
+            update() {
+                this.vy += this.gravity;
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= 0.015;
+                if (this.size > 0.1) this.size -= 0.05;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.life;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            for (let i = 0; i < 30; i++) {
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particles.push(new Particle(e.clientX, e.clientY, color));
+            }
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    });
+    </script>
 
     <!-- Live2D キャラクター表示用コード: 初音ミク -->
     <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2d.min.js"></script>

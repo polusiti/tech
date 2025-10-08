@@ -264,6 +264,21 @@ document.addEventListener('DOMContentLoaded', function() {
         window.sosyokuRenderer.updateThemeButton(savedTheme);
         window.sosyokuRenderer.updateBackground(savedTheme);
     }
+
+    // 強制的にテーマを再適用して表示を修正
+    setTimeout(() => {
+        console.log('Forcing theme refresh for sosyoku page');
+        if (body.classList.contains('dark-mode')) {
+            body.classList.remove('dark-mode');
+            void body.offsetWidth; // reflow
+            body.classList.add('dark-mode');
+        }
+        if (body.classList.contains('sepia-mode')) {
+            body.classList.remove('sepia-mode');
+            void body.offsetWidth; // reflow
+            body.classList.add('sepia-mode');
+        }
+    }, 100);
 });
 
 // 既存のテーマ切り替え関数を上書き

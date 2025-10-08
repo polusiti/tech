@@ -169,7 +169,7 @@ body.sepia-mode .info {
 }
 
 /* 動的背景キャンバス */
-#starry-sky-canvas, #fish-canvas {
+#starry-sky-canvas, #fish-canvas, #jsi-flying-fish-container {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -181,6 +181,18 @@ body.sepia-mode .info {
 
 #fish-canvas {
     display: none;
+}
+
+#jsi-flying-fish-container {
+    display: none;
+}
+
+#jsi-flying-fish-container canvas {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 /* テーマ切り替えボタン */

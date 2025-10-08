@@ -13,6 +13,7 @@
     <!-- 動的背景キャンバス -->
     <canvas id="starry-sky-canvas"></canvas>
     <canvas id="fish-canvas"></canvas>
+    <div id="jsi-flying-fish-container"></div>
 
     <!-- テーマ切り替えボタン -->
     <button id="themeCyclerBtn" class="theme-cycler-button" title="Change Theme">🌙</button>
@@ -26,6 +27,7 @@
             <button onclick="changeScale(1.2)">拡大</button>
             <button onclick="changeScale(0.8)">縮小</button>
             <button onclick="resetPosition()">位置リセット</button>
+            <button onclick="toggleAdvancedFish()">高度魚切り替え</button>
         </div>
 
         <div class="loading" id="loading">
@@ -38,6 +40,7 @@
             <p>🎆 クリックエフェクト付き！</p>
             <p>🎵 音楽プレイヤー付き！</p>
             <p>🌈 テーマ切り替え機能付き！</p>
+            <p>🐟 高度魚アニメーション付き！</p>
         </div>
     </div>
 
@@ -55,5 +58,6 @@
     <script src="app.js"></script>
     <script src="theme.js"></script>
     <script src="shortcode.js"></script>
+    <script src="flying-fish.js"></script>
 </body>
 </html>

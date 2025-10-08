@@ -21,13 +21,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const updateBackground = (theme) => {
         const starCanvas = document.getElementById('starry-sky-canvas');
         const fishCanvas = document.getElementById('fish-canvas');
+        const advancedFishContainer = document.getElementById('jsi-flying-fish-container');
 
+        // すべての背景を一度非表示
+        starCanvas.style.display = 'none';
+        fishCanvas.style.display = 'none';
+        if (advancedFishContainer) {
+            advancedFishContainer.style.display = 'none';
+        }
+
+        // テーマに応じて背景を表示
         if (theme === 'sepia') {
-            starCanvas.style.display = 'none';
             fishCanvas.style.display = 'block';
+        } else if (theme === 'dark') {
+            // 高度な魚アニメーションをダークモードで表示
+            if (window.advancedFishAnimation) {
+                advancedFishContainer.style.display = 'block';
+                if (!window.advancedFishAnimation.isEnabled) {
+                    window.advancedFishAnimation.start();
+                }
+            }
         } else {
             starCanvas.style.display = 'block';
-            fishCanvas.style.display = 'none';
         }
     };
 

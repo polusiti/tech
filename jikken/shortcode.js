@@ -3,7 +3,10 @@ class WordPressShortcodeParser {
     constructor() {
         this.parsers = {
             'asb19': this.parseAsb19.bind(this),
-            'ascb_heading': this.parseAscbHeading.bind(this)
+            'ascb_heading': this.parseAscbHeading.bind(this),
+            'column': this.parseColumn.bind(this),
+            'columnbox': this.parseColumn.bind(this),
+            'practicebox': this.parseColumn.bind(this)
         };
         this.init();
     }
@@ -92,6 +95,55 @@ class WordPressShortcodeParser {
         div.textContent = text;
         return div.innerHTML;
     }
+
+    // --- [C] Simple Column Box System ---
+    parseColumn(attrs, content) {
+        const title = attrs.title || '';
+        const type = attrs.type || 'column';
+
+        // タイプに応じてラベルを変更
+        let labelChars;
+        switch (type) {
+            case 'note':
+                labelChars = ['ノ', 'ー', 'ト'];
+                break;
+            case 'tip':
+                labelChars = ['T', 'i', 'p'];
+                break;
+            case 'info':
+                labelChars = ['練', '習'];
+                break;
+            case 'memo':
+                labelChars = ['メ', 'モ'];
+                break;
+            default: // 'column'
+                labelChars = ['コ', 'ラ', 'ム'];
+        }
+
+        // ラベル部分のHTMLを生成
+        let labelHtml = '';
+        for (let i = 0; i < labelChars.length; i++) {
+            const className = (i % 2 === 0) ? 'black' : 'white';
+            labelHtml += `<span class="practice-box-kanji ${className}">${labelChars[i]}</span>`;
+        }
+
+        // ユーザー指定タイトルのHTMLを生成
+        const userTitleHtml = title ? `<span class="practice-box-user-title">${this.escapeHtml(title)}</span>` : '';
+
+        return `
+            <div class="practice-box" data-type="${type}">
+                <div class="practice-box-header">
+                    <div class="practice-box-title">
+                        ${labelHtml}
+                        ${userTitleHtml}
+                    </div>
+                </div>
+                <div class="practice-box-content">
+                    ${content || ''}
+                </div>
+            </div>
+        `;
+    }
 }
 
 // デモ機能
@@ -115,8 +167,9 @@ class ShortcodeDemo {
         this.demoContainer.innerHTML = `
             <div class="demo-controls">
                 <h3>WordPressショートコード デモ</h3>
-                <button onclick="window.shortcodeDemo.addAsb19Demo()">asb19ボックス追加</button>
-                <button onclick="window.shortcodeDemo.addHeadingDemo()">見出し追加</button>
+                <button onclick="window.shortcodeDemo.addAsb19Demo()">asb19ボックス</button>
+                <button onclick="window.shortcodeDemo.addHeadingDemo()">見出し</button>
+                <button onclick="window.shortcodeDemo.addColumnDemo()">カラムボックス</button>
                 <button onclick="window.shortcodeDemo.clearDemo()">クリア</button>
             </div>
             <div class="demo-content" id="demo-content"></div>
@@ -180,7 +233,8 @@ class ShortcodeDemo {
             }
 
             .demo-content .asb19-box,
-            .demo-content .ascb-heading-container {
+            .demo-content .ascb-heading-container,
+            .demo-content .practice-box {
                 margin-bottom: 15px;
             }
 
@@ -245,7 +299,34 @@ class ShortcodeDemo {
         window.shortcodeParser.processShortcode(element);
     }
 
-    clearDemo() {
+    addColumnDemo() {
+        const demoContent = document.getElementById('demo-content');
+        const types = ['column', 'note', 'tip', 'info', 'memo'];
+        const demos = [
+            { type: 'column', title: '基本カラム', content: 'これはカラムボックスのデモです。白背景でクリーンなデザインです。' },
+            { type: 'note', title: '重要なノート', content: 'ノートタイプです。青色のアクセントが付いています。' },
+            { type: 'tip', title: '便利なヒント', content: 'ヒントタイプです。緑色のアクセントで親しみやすい印象です。' },
+            { type: 'info', title: '練習問題', content: '練習タイプです。紫色のアクセントで情報を強調します。' },
+            { type: 'memo', title: 'メモ', content: 'メモタイプです。黄色のアクセントで目立ちます。' }
+        ];
+
+        const demo = demos[Math.floor(Math.random() * demos.length)];
+        const element = document.createElement('div');
+        element.dataset.shortcode = JSON.stringify({
+            type: 'column',
+            attrs: {
+                type: demo.type,
+                title: demo.title
+            },
+            content: demo.content
+        });
+        demoContent.appendChild(element);
+
+        // ショートコードを処理
+        window.shortcodeParser.processShortcode(element);
+    }
+
+  clearDemo() {
         const demoContent = document.getElementById('demo-content');
         if (demoContent) {
             demoContent.innerHTML = '';
@@ -263,6 +344,11 @@ window.shortcodeDemo = {
     addHeadingDemo: function() {
         if (window.shortcodeDemoInstance) {
             window.shortcodeDemoInstance.addHeadingDemo();
+        }
+    },
+    addColumnDemo: function() {
+        if (window.shortcodeDemoInstance) {
+            window.shortcodeDemoInstance.addColumnDemo();
         }
     },
     clearDemo: function() {

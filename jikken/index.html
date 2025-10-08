@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live2D 実験 - 初音ミク</title>
+
+    <!-- APlayer.js ライブラリの読み込み -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+
     <style>
         body {
             margin: 0;
@@ -83,6 +88,49 @@
             z-index: 9999 !important;
         }
 
+        /* APlayer カスタムスタイル */
+        .aplayer {
+            position: fixed !important;
+            bottom: 20px !important;
+            left: 20px !important;
+            z-index: 9998 !important;
+            margin: 0 !important;
+            max-width: 300px !important;
+        }
+
+        .aplayer-body {
+            background: rgba(0, 0, 0, 0.8) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+
+        .aplayer-pic {
+            border-radius: 8px !important;
+        }
+
+        .aplayer-info {
+            padding: 10px !important;
+        }
+
+        .aplayer-music {
+            color: white !important;
+        }
+
+        .aplayer-author {
+            color: #ccc !important;
+        }
+
+        .aplayer-lrc {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .aplayer {
+                bottom: 10px !important;
+                left: 10px !important;
+                max-width: 250px !important;
+            }
+        }
+
         .loading {
             position: absolute;
             top: 50%;
@@ -114,8 +162,12 @@
             <p>Live2D 初音ミクモデル</p>
             <p>クリックしてインタラクション！</p>
             <p>🎆 クリックエフェクト付き！</p>
+            <p>🎵 音楽プレイヤー付き！</p>
         </div>
     </div>
+
+    <!-- プレイヤーを表示するための空の箱 -->
+    <div id="player1"></div>
 
     <!-- =================================================================== -->
     <!-- WordPress専用 弾けるクリックエフェクト (完全独立・高安定性版) -->
@@ -198,6 +250,175 @@
             requestAnimationFrame(animate);
         }
         animate();
+    });
+    </script>
+
+    <!-- プレイヤーを初期化するスクリプト -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // APlayerの設定
+        const ap = new APlayer({
+            container: document.getElementById('player1'), // 上の箱とIDを一致させる
+            fixed: true, // 画面に固定表示する
+            autoplay: false, // 自動再生はしない
+            theme: '#e5418b', // テーマカラー（お好みで変更可能）
+            loop: 'all', // 全曲ループ
+            order: 'random', // ランダム再生
+            preload: 'auto', // 事前読み込み
+            volume: 0.7, // 初期ボリューム
+            mutex: true, // 複数のプレイヤーを同時に再生しない
+            listFolded: true, // 最初はプレイリストを折りたたむ
+            listMaxHeight: 280, // プレイリストの最大の高さ
+            audio: [ // ここに曲リストを追加していきます
+                {
+                    name: '1',
+                    artist: 'AI',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/206780.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+
+                {
+                    name: '2',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/Glenn_Gould_-_Bach_French_Suite_4_In_E_Flat_BWV_815_-_1._Allemande_mp3.pm_.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '3',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/Shannons-Lullaby.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '4',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/flowing-light-ai-193402.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/proof-of-courage-ai-205299.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '6',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/sparkling-world-of-magic-ai-205280.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '7',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/subtlety-of-koto-sounds-ai-213697.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '8',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/electronic-echo-ai-205279.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 9',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/peaceful-piano-background-music-218762.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 10',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/dark-music-249503.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 11',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/6-cinematic__bpm70-200199.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 12',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/himalayan-village-flute-251427.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 13',
+                    artist: 'AI',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/shadows-of-the-night-rap-beat-prod-by-sus-beats-203125.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 14',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/indian-style-280602.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 15',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/206780.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 1',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/55.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 2',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/56.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 3',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/57.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 4',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/58.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 3.5',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/Furina-Demo-All-the-Worlds-a-Stage-Piano-Performance-Genshin-Impact-OST.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: '5 of 5',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/59.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: 'f',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/Chopin-fantasie-impromptu.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: 'mo',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/Classicals.de-Beethoven-Moonlight-Sonata-I.-Movement-Piano-Sonata-Nr.-14-Op.-27-Nr.-2-Version-2.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                },
+                {
+                    name: 'end',
+                    artist: 'welcome',
+                    url: 'https://allfrom0.tech/wp-content/uploads/2025/06/Classicals.de-Beethoven-Moonlight-Sonata-III.-Movement-Piano-Sonata-Nr.-14-Op.-27-Nr.-2.mp3',
+                    cover: 'https://allfrom0.tech/wp-content/uploads/2025/06/anime-style-clouds_23-2151071669.avif'
+                }
+            ]
+        });
+
+        console.log('APlayer initialized with', ap.list.audios.length, 'tracks');
     });
     </script>
 

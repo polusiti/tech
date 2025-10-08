@@ -138,8 +138,13 @@ class SosyokuRenderer {
 
             // ボックスを再構築
             box.innerHTML = `
-                <div class="tcolorbox-corner"></div>
-                <div class="tcolorbox-title">${titleHtml}</div>
+                <div class="tcolorbox-frame"></div>
+                <div class="tcolorbox-decoration"></div>
+                <div class="tcolorbox-corner-tl"></div>
+                <div class="tcolorbox-corner-br"></div>
+                <div class="tcolorbox-title-wrapper">
+                    <span class="tcolorbox-title">${titleHtml}</span>
+                </div>
                 <div class="tcolorbox-content">${content}</div>
             `;
         });

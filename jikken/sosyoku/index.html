@@ -131,6 +131,44 @@
                     </div>
                 </div>
 
+                <!-- 高度なtcolorboxデモ -->
+                <div class="shortcode-demo-section">
+                    <h2>高度なtcolorbox装飾（LaTeX完全再現）</h2>
+
+                    <div class="tcolorbox" data-tcolorbox-title="LaTeX tcolorbox" data-tcolorbox-subtitle="完全再現版">
+                        <p>これはLaTeXのtcolorboxコマンドを完璧に再現したWeb実装です。</p>
+                        <ul>
+                            <li>左上と右下の黒い角装飾</li>
+                            <li>タイトル位置での枠線の途切れ</li>
+                            <li>複雑な枠線パターン</li>
+                            <li>カスタムカラー対応</li>
+                        </ul>
+                        <p>特に学術的な文書で使用するのに適しています。</p>
+                    </div>
+
+                    <div class="tcolorbox tcolorbox-blue" data-tcolorbox-title="数学の定理" data-tcolorbox-subtitle="オイラーの公式">
+                        <div class="math-display">e^(iπ) + 1 = 0</div>
+                        <p>これは数学において最も美しい公式の一つとされています。</p>
+                        <p>5つの基本的な数学定数が一つの式で表現されています。</p>
+                    </div>
+
+                    <div class="tcolorbox tcolorbox-red" data-tcolorbox-title="重要な定理" data-tcolorbox-subtitle="フェルマーの最終定理">
+                        <p>x^n + y^n = z^n は n > 2 について自然数解を持たない。</p>
+                        <p>この定理は358年間証明されませんでしたが、1994年にアンドリュー・ワイルズによって証明されました。</p>
+                    </div>
+
+                    <div class="tcolorbox" data-tcolorbox-title="コード例" data-tcolorbox-subtitle="アルゴリズム実装">
+                        <pre><code>function quickSort(arr) {
+    if (arr.length <= 1) return arr;
+    const pivot = arr[Math.floor(arr.length / 2)];
+    const left = arr.filter(x => x < pivot);
+    const middle = arr.filter(x => x === pivot);
+    const right = arr.filter(x => x > pivot);
+    return [...quickSort(left), ...middle, ...quickSort(right)];
+}</code></pre>
+                    </div>
+                </div>
+
                 <!-- tcolorbox 使用ガイド -->
                 <div class="shortcode-demo-section">
                     <h2>tcolorbox 使用ガイド</h2>

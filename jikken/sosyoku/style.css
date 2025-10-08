@@ -77,60 +77,149 @@ header {
     background: white;
     margin: 30px 0;
     padding: 20px 20px 20px 20px;
-    border: 2px solid gray;
     break-inside: avoid;
+    overflow: visible;
 }
 
-.tcolorbox::before {
+.tcolorbox-frame {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* 基本枠線 */
+.tcolorbox-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid gray;
+    border-color: inherit;
+}
+
+/* 枠線の途切れ部分（タイトル接続用） */
+.tcolorbox-frame::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: calc(10mm + 20px + 2px);
+    width: 2px;
+    height: calc(10mm + 2px);
+    background: white;
+    z-index: 2;
+}
+
+/* 左上角の黒い装飾 */
+.tcolorbox-corner-tl {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(10mm + 2px);
+    height: calc(10mm + 2px);
+    background: black;
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% 2px,
+        calc(100% - 9mm) 2px,
+        calc(100% - 9mm) calc(100% - 2px),
+        0 calc(100% - 2px)
+    );
+    z-index: 3;
+}
+
+/* 右下角の黒い装飾 */
+.tcolorbox-corner-br {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: calc(10mm + 2px);
+    height: calc(10mm + 2px);
+    background: black;
+    clip-path: polygon(
+        calc(100% - 10mm) 100%,
+        100% 100%,
+        100% calc(100% - 9mm),
+        2px calc(100% - 9mm),
+        2px 2px,
+        calc(100% - 10mm) 2px
+    );
+    z-index: 3;
+}
+
+/* 枠線の複雑な装飾 */
+.tcolorbox-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.tcolorbox-decoration::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    background-image:
+        /* 上辺: タイトルの両側で途切れる */
+        linear-gradient(gray, gray) 0 0 / calc(10mm + 20px) 2px no-repeat,
+        linear-gradient(gray, gray) calc(100% - 10mm) 0 / 10mm 2px no-repeat,
+
+        /* 下辺: 同様に途切れる */
+        linear-gradient(gray, gray) 0 100% / 10mm 2px no-repeat,
+        linear-gradient(gray, gray) calc(10mm + 20px) 100% / calc(100% - 10mm - 20px - 10mm) 2px no-repeat,
+
+        /* 左辺 */
+        linear-gradient(gray, gray) 0 0 / 2px calc(10mm + 2px) no-repeat,
+        linear-gradient(gray, gray) 0 calc(10mm + 2px) / 2px calc(100% - 10mm - 2px) no-repeat,
+
+        /* 右辺 */
+        linear-gradient(gray, gray) 100% 0 / 2px calc(100% - 10mm - 2px) no-repeat,
+        linear-gradient(gray, gray) 100% calc(100% - 10mm - 2px) / 2px calc(10mm + 2px) no-repeat;
+}
+
+/* 枠線の角の装飾 */
+.tcolorbox-decoration::after {
     content: '';
     position: absolute;
     top: -2px;
     left: -2px;
     right: -2px;
     bottom: -2px;
-    background:
-        linear-gradient(gray, gray) 0 0 / 2px 100% no-repeat,
-        linear-gradient(gray, gray) 100% 0 / 2px 100% no-repeat,
-        linear-gradient(gray, gray) 0 0 / 100% 2px no-repeat,
-        linear-gradient(gray, gray) 0 100% / 100% 2px no-repeat,
-        linear-gradient(gray, gray) 0 0 / calc(10mm + 2px) 2px no-repeat,
-        linear-gradient(gray, gray) calc(100% - 10mm - 2px) 100% / calc(10mm + 2px) 2px no-repeat;
-    z-index: 1;
-    pointer-events: none;
-}
+    background-image:
+        /* 左上角の追加装飾 */
+        linear-gradient(45deg, transparent 49.75%, gray 49.75%, gray 50.25%, transparent 50.25%)
+            0 0 / 5mm 5mm no-repeat,
 
-/* 左上角の黒い装飾 */
-.tcolorbox::after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    width: calc(10mm + 2px);
-    height: calc(10mm + 2px);
-    background: black;
-    z-index: 2;
-    clip-path: polygon(
-        0 0,
-        calc(100% - 2px) 0,
-        calc(100% - 2px) calc(100% - 9mm - 2px),
-        calc(100% - 9mm - 2px) calc(100% - 9mm - 2px),
-        calc(100% - 9mm - 2px) calc(100% - 2px),
-        0 calc(100% - 2px)
-    );
+        /* 右下角の追加装飾 */
+        linear-gradient(45deg, transparent 49.75%, gray 49.75%, gray 50.25%, transparent 50.25%)
+            100% 100% / 5mm 5mm no-repeat;
 }
 
 .tcolorbox-content {
     position: relative;
-    z-index: 3;
-    padding-top: 20px;
+    z-index: 4;
+    padding: 20px 20px 20px 20px;
+    margin: 2px;
 }
 
-.tcolorbox-title {
+.tcolorbox-title-wrapper {
     position: absolute;
-    top: -15px;
+    top: -2px;
     left: calc(10mm + 20px);
     background: white;
-    padding: 5px 10px;
+    padding: 4px 12px;
     font-weight: bold;
     font-family: sans-serif;
     color: black;
@@ -138,46 +227,59 @@ header {
     max-width: 85%;
     overflow: hidden;
     text-overflow: ellipsis;
+    z-index: 5;
+    border: 2px solid gray;
+    border-bottom: none;
+    border-top: none;
+    margin-top: -1px;
+}
+
+.tcolorbox-title {
+    font-weight: bold;
+    color: black;
 }
 
 .tcolorbox-subtitle {
     font-weight: normal;
     color: #666;
-    margin-left: 10px;
+    margin-left: 8px;
 }
 
-/* 右下角の黒い装飾 */
-.tcolorbox-corner {
-    position: absolute;
-    bottom: -2px;
-    right: -2px;
-    width: calc(10mm + 2px);
-    height: calc(10mm + 2px);
-    background: black;
-    z-index: 2;
-    clip-path: polygon(
-        calc(100% - 9mm - 2px) 100%,
-        100% 100%,
-        100% calc(100% - 9mm - 2px),
-        calc(100% - 2px) calc(100% - 9mm - 2px),
-        calc(100% - 2px) calc(100% - 2px),
-        calc(100% - 9mm - 2px) calc(100% - 2px)
-    );
-}
 
 /* 青色バージョン */
-.tcolorbox-blue {
+.tcolorbox-blue .tcolorbox-frame,
+.tcolorbox-blue .tcolorbox-title-wrapper {
     border-color: #3182ce;
 }
 
-.tcolorbox-blue::before {
-    background:
-        linear-gradient(#3182ce, #3182ce) 0 0 / 2px 100% no-repeat,
-        linear-gradient(#3182ce, #3182ce) 100% 0 / 2px 100% no-repeat,
-        linear-gradient(#3182ce, #3182ce) 0 0 / 100% 2px no-repeat,
-        linear-gradient(#3182ce, #3182ce) 0 100% / 100% 2px no-repeat,
-        linear-gradient(#3182ce, #3182ce) 0 0 / calc(10mm + 2px) 2px no-repeat,
-        linear-gradient(#3182ce, #3182ce) calc(100% - 10mm - 2px) 100% / calc(10mm + 2px) 2px no-repeat;
+.tcolorbox-blue .tcolorbox-decoration::before {
+    background-image:
+        /* 上辺: タイトルの両側で途切れる */
+        linear-gradient(#3182ce, #3182ce) 0 0 / calc(10mm + 20px) 2px no-repeat,
+        linear-gradient(#3182ce, #3182ce) calc(100% - 10mm) 0 / 10mm 2px no-repeat,
+
+        /* 下辺: 同様に途切れる */
+        linear-gradient(#3182ce, #3182ce) 0 100% / 10mm 2px no-repeat,
+        linear-gradient(#3182ce, #3182ce) calc(10mm + 20px) 100% / calc(100% - 10mm - 20px - 10mm) 2px no-repeat,
+
+        /* 左辺 */
+        linear-gradient(#3182ce, #3182ce) 0 0 / 2px calc(10mm + 2px) no-repeat,
+        linear-gradient(#3182ce, #3182ce) 0 calc(10mm + 2px) / 2px calc(100% - 10mm - 2px) no-repeat,
+
+        /* 右辺 */
+        linear-gradient(#3182ce, #3182ce) 100% 0 / 2px calc(100% - 10mm - 2px) no-repeat,
+        linear-gradient(#3182ce, #3182ce) 100% calc(100% - 10mm - 2px) / 2px calc(10mm + 2px) no-repeat;
+}
+
+.tcolorbox-blue .tcolorbox-decoration::after {
+    background-image:
+        /* 左上角の追加装飾 */
+        linear-gradient(45deg, transparent 49.75%, #3182ce 49.75%, #3182ce 50.25%, transparent 50.25%)
+            0 0 / 5mm 5mm no-repeat,
+
+        /* 右下角の追加装飾 */
+        linear-gradient(45deg, transparent 49.75%, #3182ce 49.75%, #3182ce 50.25%, transparent 50.25%)
+            100% 100% / 5mm 5mm no-repeat;
 }
 
 .tcolorbox-blue .tcolorbox-title {
@@ -185,18 +287,39 @@ header {
 }
 
 /* 赤色バージョン */
-.tcolorbox-red {
+.tcolorbox-red .tcolorbox-frame,
+.tcolorbox-red .tcolorbox-title-wrapper {
     border-color: #e53e3e;
 }
 
-.tcolorbox-red::before {
-    background:
-        linear-gradient(#e53e3e, #e53e3e) 0 0 / 2px 100% no-repeat,
-        linear-gradient(#e53e3e, #e53e3e) 100% 0 / 2px 100% no-repeat,
-        linear-gradient(#e53e3e, #e53e3e) 0 0 / 100% 2px no-repeat,
-        linear-gradient(#e53e3e, #e53e3e) 0 100% / 100% 2px no-repeat,
-        linear-gradient(#e53e3e, #e53e3e) 0 0 / calc(10mm + 2px) 2px no-repeat,
-        linear-gradient(#e53e3e, #e53e3e) calc(100% - 10mm - 2px) 100% / calc(10mm + 2px) 2px no-repeat;
+.tcolorbox-red .tcolorbox-decoration::before {
+    background-image:
+        /* 上辺: タイトルの両側で途切れる */
+        linear-gradient(#e53e3e, #e53e3e) 0 0 / calc(10mm + 20px) 2px no-repeat,
+        linear-gradient(#e53e3e, #e53e3e) calc(100% - 10mm) 0 / 10mm 2px no-repeat,
+
+        /* 下辺: 同様に途切れる */
+        linear-gradient(#e53e3e, #e53e3e) 0 100% / 10mm 2px no-repeat,
+        linear-gradient(#e53e3e, #e53e3e) calc(10mm + 20px) 100% / calc(100% - 10mm - 20px - 10mm) 2px no-repeat,
+
+        /* 左辺 */
+        linear-gradient(#e53e3e, #e53e3e) 0 0 / 2px calc(10mm + 2px) no-repeat,
+        linear-gradient(#e53e3e, #e53e3e) 0 calc(10mm + 2px) / 2px calc(100% - 10mm - 2px) no-repeat,
+
+        /* 右辺 */
+        linear-gradient(#e53e3e, #e53e3e) 100% 0 / 2px calc(100% - 10mm - 2px) no-repeat,
+        linear-gradient(#e53e3e, #e53e3e) 100% calc(100% - 10mm - 2px) / 2px calc(10mm + 2px) no-repeat;
+}
+
+.tcolorbox-red .tcolorbox-decoration::after {
+    background-image:
+        /* 左上角の追加装飾 */
+        linear-gradient(45deg, transparent 49.75%, #e53e3e 49.75%, #e53e3e 50.25%, transparent 50.25%)
+            0 0 / 5mm 5mm no-repeat,
+
+        /* 右下角の追加装飾 */
+        linear-gradient(45deg, transparent 49.75%, #e53e3e 49.75%, #e53e3e 50.25%, transparent 50.25%)
+            100% 100% / 5mm 5mm no-repeat;
 }
 
 .tcolorbox-red .tcolorbox-title {

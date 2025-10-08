@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>装飾展示 - WordPressショートコード実験室</title>
+
+    <!-- CSSライブラリ -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="postid-207">
+    <!-- 動的背景キャンバス -->
+    <canvas id="starry-sky-canvas"></canvas>
+    <canvas id="fish-canvas"></canvas>
+    <div id="jsi-flying-fish-container"></div>
+
+    <!-- テーマ切り替えボタン -->
+    <button id="themeCyclerBtn" class="theme-cycler-button" title="Change Theme">🌙</button>
+
+    <!-- ヘッダー -->
+    <header id="header" data-id="header">
+        <div class="header-content">
+            <h1 class="site-title">
+                <a href="#">装飾展示室</a>
+            </h1>
+            <div class="header-actions">
+                <button class="menu-toggle">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main id="main">
+        <article class="content-wrapper">
+            <div class="entry-header">
+                <h1 class="entry-title">WordPressショートコード装飾展示</h1>
+                <div class="entry-meta">
+                    <span class="meta-date">2025年1月</span>
+                    <span class="meta-author">Claude Code</span>
+                </div>
+            </div>
+
+            <div class="entry-content">
+                <!-- 導入文 -->
+                <p>これはWordPressショートコードシステムの装飾展示ページです。様々なボックスや見出しのデザインを実演できます。</p>
+
+                <!-- asb19 ボックスデモ -->
+                <div class="shortcode-demo-section">
+                    <h2>asb19 ボックスシステム</h2>
+
+                    <div class="shortcode-box" data-shortcode-type="asb19" data-shortcode-attrs='{"title":"基本ボックス","subtitle":"シンプルな例"}'>
+                        これはasb19ショートコードの基本デモです。美しい装飾枠で囲まれています。
+                    </div>
+
+                    <div class="shortcode-box" data-shortcode-type="asb19" data-shortcode-attrs='{"title":"機能紹介","subtitle":"詳細説明"}'>
+                        <ul>
+                            <li>テーマ対応機能</li>
+                            <li>アニメーション効果</li>
+                            <li>レスポンシブデザイン</li>
+                            <li>カスタム装飾枠</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 見出しシステムデモ -->
+                <div class="shortcode-demo-section">
+                    <h2>ascb_heading 見出しシステム</h2>
+
+                    <div class="heading-demo" data-heading-type="ascb_heading" data-heading-attrs='{"title":"スタイルA見出し","style":"A","star":"true","underline":"true"}'></div>
+
+                    <p>スタイルAの見出しです。星と下線付きです。</p>
+
+                    <div class="heading-demo" data-heading-type="ascb_heading" data-heading-attrs='{"title":"スタイルB見出し","style":"B","star":"false","underline":"true"}'></div>
+
+                    <p>スタイルBの見出しです。下線のみです。</p>
+
+                    <div class="heading-demo" data-heading-type="ascb_heading" data-heading-attrs='{"title":"スタイルC見出し","style":"C","star":"true","underline":"false"}'></div>
+
+                    <p>スタイルCの見出しです。星のみです。</p>
+                </div>
+
+                <!-- Simple Column Box デモ -->
+                <div class="shortcode-demo-section">
+                    <h2>Simple Column Box システム</h2>
+
+                    <div class="column-demo" data-column-type="column" data-column-attrs='{"type":"column","title":"基本カラム"}'>
+                        これは基本カラムボックスです。白背景でクリーンなデザインが特徴です。
+                    </div>
+
+                    <div class="column-demo" data-column-type="column" data-column-attrs='{"type":"note","title":"重要なノート"}'>
+                        ノートタイプです。青色のアクセントが付いています。重要な情報に適しています。
+                    </div>
+
+                    <div class="column-demo" data-column-type="column" data-column-attrs='{"type":"tip","title":"便利なヒント"}'>
+                        ヒントタイプです。緑色のアクセントで親しみやすい印象です。
+                    </div>
+
+                    <div class="column-demo" data-column-type="column" data-column-attrs='{"type":"info","title":"練習問題"}'>
+                        練習タイプです。紫色のアクセントで情報を強調します。
+                    </div>
+
+                    <div class="column-demo" data-column-type="column" data-column-attrs='{"type":"memo","title":"メモ"}'>
+                        メモタイプです。黄色のアクセントで目立ちます。
+                    </div>
+                </div>
+
+                <!-- 数式表示デモ -->
+                <div class="shortcode-demo-section">
+                    <h2>数式表示機能</h2>
+
+                    <div class="math-display">
+                        E = mc²
+                    </div>
+
+                    <p>これは有名なアインシュタインの質量等価式です。<span class="math-inline">E = mc²</span> のように文中にも表示できます。</p>
+
+                    <div class="math-display">
+                        ∫₀^∞ e^(-x²) dx = √π / 2
+                    </div>
+                </div>
+
+                <!-- 引用とコードデモ -->
+                <div class="shortcode-demo-section">
+                    <h2>引用とコード表示</h2>
+
+                    <blockquote>
+                        「シンプルさは究極の洗練である。」 - レオナルド・ダ・ヴィンチ
+                    </blockquote>
+
+                    <pre><code>function helloWorld() {
+    console.log("Hello, World!");
+}</code></pre>
+
+                    <p>インラインコードも<code>console.log()</code>のように表示できます。</p>
+                </div>
+
+                <!-- Tufte CSS 傍注デモ -->
+                <div class="shortcode-demo-section">
+                    <h2>Tufte CSS 傍注システム</h2>
+
+                    <p>
+                        本文のテキストです
+                        <label for="sidenote-1" class="sidenote-number">1</label>
+                        <input type="checkbox" id="sidenote-1" class="sidenote-toggle">
+                        <span class="sidenote">
+                            これが最初の傍注です。本文の右側に表示されます。
+                        </span>
+                        ここに本文が続きます。
+                    </p>
+
+                    <p>
+                        2番目の段落です
+                        <label for="sidenote-2" class="sidenote-number">2</label>
+                        <input type="checkbox" id="sidenote-2" class="sidenote-toggle">
+                        <span class="sidenote">
+                            2番目の傍注です。補足情報をここに記述します。
+                            詳しい説明や参考文献などを適切に配置できます。
+                        </span>
+                        本文の流れを妨げずに情報を追加できます。
+                    </p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- フッター -->
+    <footer id="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 装飾展示室 - WordPressショートコード実験</p>
+        </div>
+    </footer>
+
+    <!-- JavaScriptライブラリ -->
+    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2d.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@2.0.4/dist/canvas-nest.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-fish/fish.js"></script>
+
+    <!-- アプリケーションスクリプト -->
+    <script src="../app.js"></script>
+    <script src="../theme.js"></script>
+    <script src="../shortcode.js"></script>
+    <script src="../flying-fish.js"></script>
+    <script src="sosyoku.js"></script>
+</body>
+</html>

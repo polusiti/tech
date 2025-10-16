@@ -74,7 +74,7 @@ body {
 @media (max-width: 1400px) {
     /* 1400px以下の値をここで上書き（値だけ差し替える） */
     :root {
-        --clock-left: calc(120px + 14vw - 4vw + 2vw);
+        --clock-left: calc(120px + 14vw - 4vw + 6vw);
         --clock-bottom: calc(20px - 5vh + 4vh - 2vh);
 
         --calendar-right: calc(30px - 3vw + 8vw - 3vw - 2vw);

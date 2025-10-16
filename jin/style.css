@@ -96,11 +96,11 @@ body {
 @media (max-width: 768px) {
     /* 768px以下の値をここで上書き（この値を変えれば小さい画面で動きます） */
     :root {
-        --clock-left: calc(100px + 14vw - 4vw + 2vw);
+        --clock-left: calc(100px + 14vw - 4vw + 3vw);
         --clock-bottom: calc(15px - 5vh + 4vh - 2vh);
 
         --calendar-right: calc(15px - 3vw + 8vw - 3vw - 2vw + 0.5vw + 0.5vw + 0.7vw + 1vw);
-        --calendar-bottom: calc(15px - 6vh - 3vh + 0.2vh + 0.3vh + 0.2vh + 2vh);
+        --calendar-bottom: calc(15px - 6vh - 3vh + 0.2vh + 0.3vh + 0.2vh + 3vh);
         --calendar-scale: 0.45;
     }
 

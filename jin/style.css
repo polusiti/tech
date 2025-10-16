@@ -10,6 +10,17 @@ body {
     background: #000;
 }
 
+/* 位置とスケールを変数で一元管理 */
+:root {
+    /* 既存の通常値（=大きい画面） */
+    --clock-left: calc(180px + 14vw - 4vw + 2vw + 2vw + 3vw); /* = 180px + 17vw */
+    --clock-bottom: calc(30px - 5vh + 4vh - 2vh);
+
+    --calendar-right: calc(73px - 3vw + 8vw - 3vw - 2vw + 0.5vw + 0.5vw + 0.7vw + 3vw);
+    --calendar-bottom: calc(30px - 6vh - 3vh + 0.2vh + 0.3vh + 0.2vh + 1vh + 2vh);
+    --calendar-scale: 0.63;
+}
+
 .container {
     position: relative;
     width: 100vw;
@@ -26,8 +37,8 @@ body {
 /* 左下のデジタル時計 */
 .clock-widget {
     position: absolute;
-    left: calc(166px + 14vw - 4vw + 2vw + 2vw + 3vw);
-    bottom: calc(30px - 5vh + 4vh - 2vh);
+    left: var(--clock-left);
+    bottom: var(--clock-bottom);
     z-index: 10;
     transform: rotate(-0.7deg);
     transform-origin: center;
@@ -46,10 +57,10 @@ body {
 /* 右下のカレンダー */
 .calendar-widget {
     position: absolute;
-    right: calc(73px - 3vw + 8vw - 3vw - 2vw + 0.5vw + 0.5vw + 0.7vw + 3vw);
-    bottom: calc(30px - 6vh - 3vh + 0.2vh + 0.3vh + 0.2vh + 1vh + 2vh);
+    right: var(--calendar-right);
+    bottom: var(--calendar-bottom);
     z-index: 10;
-    transform: scale(0.63);
+    transform: scale(var(--calendar-scale));
     transform-origin: bottom right;
     overflow: visible;
 }
@@ -61,20 +72,19 @@ body {
 
 /* レスポンシブ対応 */
 @media (max-width: 1400px) {
-    .clock-widget {
-        left: calc(120px + 14vw - 4vw + 2vw);
-        bottom: calc(20px - 5vh + 4vh - 2vh);
+    /* 1400px以下の値をここで上書き（値だけ差し替える） */
+    :root {
+        --clock-left: calc(120px + 14vw - 4vw + 2vw);
+        --clock-bottom: calc(20px - 5vh + 4vh - 2vh);
+
+        --calendar-right: calc(30px - 3vw + 8vw - 3vw - 2vw);
+        --calendar-bottom: calc(20px - 6vh - 3vh);
+        --calendar-scale: 0.55;
     }
 
     .time-display {
         font-size: 35px;
         letter-spacing: 3px;
-    }
-
-    .calendar-widget {
-        right: calc(30px - 3vw + 8vw - 3vw - 2vw);
-        bottom: calc(20px - 6vh - 3vh);
-        transform: scale(0.55);
     }
 
     #calendar-canvas {
@@ -84,20 +94,19 @@ body {
 }
 
 @media (max-width: 768px) {
-    .clock-widget {
-        left: calc(100px + 14vw - 4vw + 2vw);
-        bottom: calc(15px - 5vh + 4vh - 2vh);
+    /* 768px以下の値をここで上書き（この値を変えれば小さい画面で動きます） */
+    :root {
+        --clock-left: calc(100px + 14vw - 4vw + 2vw);
+        --clock-bottom: calc(15px - 5vh + 4vh - 2vh);
+
+        --calendar-right: calc(15px - 3vw + 8vw - 3vw - 2vw + 0.5vw + 0.5vw + 0.7vw + 1vw);
+        --calendar-bottom: calc(15px - 6vh - 3vh + 0.2vh + 0.3vh + 0.2vh + 1vh);
+        --calendar-scale: 0.45;
     }
 
     .time-display {
         font-size: 27px;
         letter-spacing: 2px;
-    }
-
-    .calendar-widget {
-        right: calc(15px - 3vw + 8vw - 3vw - 2vw + 0.5vw + 0.5vw + 0.7vw + 1vw);
-        bottom: calc(15px - 6vh - 3vh + 0.2vh + 0.3vh + 0.2vh + 1vh);
-        transform: scale(0.45);
     }
 
     #calendar-canvas {

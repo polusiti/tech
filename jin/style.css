@@ -26,7 +26,7 @@ body {
 /* 左下のデジタル時計 */
 .clock-widget {
     position: absolute;
-    left: calc(180px + 14vw - 4vw + 2vw + 2vw + 3vw);
+    left: calc(186px + 14vw - 4vw + 2vw + 2vw + 3vw);
     bottom: calc(30px - 5vh + 4vh - 2vh);
     z-index: 10;
     transform: rotate(-0.7deg);

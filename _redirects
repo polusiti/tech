@@ -1,2 +1,2 @@
-# SPAリダイレクト設定
-/slee/* /slee/index.html 200
+# SPAリダイレクト設定 - ループ回避
+/slee /slee/index.html 200

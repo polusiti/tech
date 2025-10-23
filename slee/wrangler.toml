@@ -1,5 +1,6 @@
 name = "wuxin-recreation"
 compatibility_date = "2023-12-01"
+main = "slee/index.html"
 
 [env.production]
 compatibility_date = "2023-12-01"

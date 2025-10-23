@@ -98,6 +98,7 @@
     .hero {
       text-align: center;
       margin-bottom: 3rem;
+      position: relative;
     }
 
     .hero img {
@@ -171,11 +172,13 @@
 
     /* Fantasyコンポーネントスタイル */
     .fantasy {
-      position: relative;
-      width: 100%;
-      max-width: 600px;
-      height: 600px;
-      margin: 2rem auto;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 360px;
+      height: 360px;
+      z-index: 2;
+      pointer-events: none;
     }
 
     .fantasy canvas {
@@ -309,7 +312,7 @@
       }
 
       .fantasy {
-        height: 400px;
+        display: none; /* モバイルでは非表示 */
       }
 
       .global-tip {
@@ -347,6 +350,14 @@
       <h1>wuxin0011 blog</h1>
       <p>個人技術ブログへようこそ</p>
       <p style="font-size: 1.2rem; font-style: italic; color: #888;">懂得越多，懂得越少</p>
+
+      <!-- Fantasyコンポーネントをhero内に移動 -->
+      <section class="fantasy" id="fantasy">
+        <canvas id="cvs" class="hidden" width="1980" height="1080"></canvas>
+        <canvas id="screenImage" class="hidden" width="234" height="357"></canvas>
+        <canvas id="rili" class="hidden" width="600" height="600"></canvas>
+        <canvas id="display"></canvas>
+      </section>
     </section>
 
     <section class="cards-container">
@@ -373,14 +384,6 @@
         </div>
         <p class="card-content">Git, Docker, VS Code, 実用スクリプトなど開発効率化ツール</p>
       </a>
-    </section>
-
-    <!-- Fantasyコンポーネント -->
-    <section class="fantasy" id="fantasy">
-      <canvas id="cvs" class="hidden" width="1980" height="1080"></canvas>
-      <canvas id="screenImage" class="hidden" width="234" height="357"></canvas>
-      <canvas id="rili" class="hidden" width="600" height="600"></canvas>
-      <canvas id="display"></canvas>
     </section>
   </main>
 
@@ -587,11 +590,11 @@
         }
       }
 
-      // 表示キャンバスにコピー
+      // 表示キャンバスにコピー（サイズ調整）
       function copyToDisplay() {
-        display.width = rili.width;
-        display.height = rili.height;
-        displayCtx.drawImage(rili, 0, 0);
+        display.width = 360;
+        display.height = 360;
+        displayCtx.drawImage(rili, 0, 0, 600, 600, 0, 0, 360, 360);
       }
 
       // 初期化

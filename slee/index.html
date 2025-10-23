@@ -140,6 +140,129 @@
       color: inherit;
     }
 
+    /* カレンダーと時計のスタイル */
+    .datetime-container {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    .clock {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #11A8CD;
+      margin-bottom: 1rem;
+      font-family: 'Courier New', monospace;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .date {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .calendar-header {
+      font-weight: 600;
+      color: #11A8CD;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .calendar-day:hover {
+      background: rgba(17, 168, 205, 0.1);
+      transform: scale(1.1);
+    }
+
+    .calendar-day.today {
+      background: #11A8CD;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 4px 8px rgba(17, 168, 205, 0.3);
+    }
+
+    .calendar-day.other-month {
+      color: #ccc;
+    }
+
+    /* ファンシー要素 */
+    .fantasy-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* グローバルヒント */
+    .global-tip {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: saturate(180%) blur(20px);
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      z-index: 10000;
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+      max-width: 300px;
+    }
+
+    .global-tip.show {
+      transform: translateX(0);
+    }
+
+    .global-tip.info {
+      border-left: 4px solid #11A8CD;
+    }
+
+    .global-tip.success {
+      border-left: 4px solid #67c23a;
+    }
+
+    .global-tip.warning {
+      border-left: 4px solid #e6a23c;
+    }
+
+    .global-tip .tip-content {
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .global-tip .tip-time {
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 0.5rem;
+    }
+
     .card:hover {
       transform: translateY(-3px) scale(1.01);
       box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.7);
@@ -221,6 +344,15 @@
   </style>
 </head>
 <body>
+  <!-- ファンシーキャンバス -->
+  <canvas id="fantasyCanvas" class="fantasy-canvas"></canvas>
+
+  <!-- グローバルヒント -->
+  <div id="globalTip" class="global-tip">
+    <div class="tip-content"></div>
+    <div class="tip-time"></div>
+  </div>
+
   <!-- ナビゲーション -->
   <nav class="navbar">
     <a href="/tech/slee/" class="navbar-brand">
@@ -271,6 +403,13 @@
         <p class="card-content">Git, Docker, VS Code, 実用スクリプトなど開発効率化ツール</p>
       </a>
     </section>
+
+    <!-- 時計とカレンダー -->
+    <section class="datetime-container">
+      <div class="clock" id="clock">00:00:00</div>
+      <div class="date" id="date">2024年1月1日 月曜日</div>
+      <div class="calendar" id="calendar"></div>
+    </section>
   </main>
 
   <!-- フッター -->
@@ -297,24 +436,222 @@
   <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.1/Meting.min.js" crossorigin="anonymous"></script>
 
   <script>
-    // 簡単な時間表示機能
-    function updateTime() {
+    // ========== 時計機能 ==========
+    function updateClock() {
       const now = new Date();
       const hours = now.getHours().toString().padStart(2, '0');
       const minutes = now.getMinutes().toString().padStart(2, '0');
       const seconds = now.getSeconds().toString().padStart(2, '0');
 
-      // 時間に応じた挨拶
+      document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    // ========== カレンダー機能 ==========
+    function updateCalendar() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const today = now.getDate();
+
+      // 曜日の配列
+      const weekDays = ['日', '月', '火', '水', '木', '金', '土'];
+      const weekDay = weekDays[now.getDay()];
+
+      // 日付表示を更新
+      const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+      document.getElementById('date').textContent = `${year}年${months[month]}${today}日 ${weekDay}曜日`;
+
+      // カレンダーを生成
+      const firstDay = new Date(year, month, 1).getDay();
+      const lastDate = new Date(year, month + 1, 0).getDate();
+      const prevLastDate = new Date(year, month, 0).getDate();
+
+      let calendarHTML = '';
+
+      // 曜日ヘッダー
+      weekDays.forEach(day => {
+        calendarHTML += `<div class="calendar-header">${day}</div>`;
+      });
+
+      // 前月の日付
+      for (let i = firstDay - 1; i >= 0; i--) {
+        calendarHTML += `<div class="calendar-day other-month">${prevLastDate - i}</div>`;
+      }
+
+      // 今月の日付
+      for (let day = 1; day <= lastDate; day++) {
+        const isToday = day === today;
+        calendarHTML += `<div class="calendar-day ${isToday ? 'today' : ''}">${day}</div>`;
+      }
+
+      // 翌月の日付
+      const totalCells = firstDay + lastDate;
+      const nextMonthDays = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+      for (let day = 1; day <= nextMonthDays; day++) {
+        calendarHTML += `<div class="calendar-day other-month">${day}</div>`;
+      }
+
+      document.getElementById('calendar').innerHTML = calendarHTML;
+    }
+
+    // ========== グローバルヒント機能 ==========
+    function showGlobalTip() {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+
+      let message = '';
+      let type = 'info';
+
+      if (hours >= 6 && hours < 9) {
+        message = `おはようございます！現在 ${hours}:${minutes}:${seconds}、朝ごはんを食べましたか？🍔`;
+      } else if (hours >= 9 && hours < 12) {
+        message = `おはようございます！現在 ${hours}:${minutes}:${seconds}、サボらないように気をつけてください🐟`;
+      } else if (hours >= 12 && hours < 13) {
+        message = `こんにちは！現在 ${hours}:${minutes}:${seconds}、お昼のご飯の時間です🍚`;
+        type = 'success';
+      } else if (hours >= 13 && hours < 14) {
+        message = `こんにちは！現在 ${hours}:${minutes}:${seconds}、忙しい午後も適度に休憩してください😴`;
+      } else if (hours >= 14 && hours < 17) {
+        message = `こんにちは！現在 ${hours}:${minutes}:${seconds}、午後も頑張ってください🐟`;
+      } else if (hours >= 17 && hours < 19) {
+        message = `夕方になりました！現在 ${hours}:${minutes}:${seconds}、夕食の準備をしましょう🥗🍖`;
+        type = 'warning';
+      } else if (hours >= 19 && hours < 20) {
+        message = `こんばんは！現在 ${hours}:${minutes}:${seconds}、一日お疲れ様でした、運動もしましょう🏃‍♂️`;
+        type = 'success';
+      } else if (hours >= 20 && hours < 23) {
+        message = `こんばんは！現在 ${hours}:${minutes}:${seconds}、夜もこっそり勉強しましょう💯`;
+      } else if (hours >= 23 && hours < 24) {
+        message = `こんばんは！現在 ${hours}:${minutes}:${seconds}、そろそろお風呂に入って寝ましょう🛀🥱😪`;
+        type = 'warning';
+      } else {
+        message = `夜更かししないで！現在 ${hours}:${minutes}:${seconds}、早く寝て、朝日を一緒に楽しみましょう😇🛏`;
+        type = 'warning';
+      }
+
+      const tipElement = document.getElementById('globalTip');
+      const contentElement = tipElement.querySelector('.tip-content');
+      const timeElement = tipElement.querySelector('.tip-time');
+
+      contentElement.textContent = message;
+      timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+
+      tipElement.className = `global-tip ${type} show`;
+
+      // 4秒後に非表示
+      setTimeout(() => {
+        tipElement.classList.remove('show');
+      }, 4000);
+    }
+
+    // ========== ファンシーキャンバス機能 ==========
+    function initFantasyCanvas() {
+      const canvas = document.getElementById('fantasyCanvas');
+      const ctx = canvas.getContext('2d');
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const particleCount = 50;
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+
+        reset() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 3 + 1;
+          this.speedX = (Math.random() - 0.5) * 0.5;
+          this.speedY = (Math.random() - 0.5) * 0.5;
+          this.opacity = Math.random() * 0.5 + 0.2;
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+
+          if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+          if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+
+        draw() {
+          ctx.fillStyle = `rgba(17, 168, 205, ${this.opacity})`;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      // パーティクルを作成
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach(particle => {
+          particle.update();
+          particle.draw();
+        });
+
+        // 線を引く
+        particles.forEach((p1, i) => {
+          particles.slice(i + 1).forEach(p2 => {
+            const distance = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
+            if (distance < 100) {
+              ctx.strokeStyle = `rgba(17, 168, 205, ${0.1 * (1 - distance / 100)})`;
+              ctx.lineWidth = 0.5;
+              ctx.beginPath();
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
+          });
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      // リサイズ対応
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    }
+
+    // ========== 初期化と実行 ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      // 時計とカレンダーを更新
+      updateClock();
+      updateCalendar();
+      setInterval(updateClock, 1000);
+      setInterval(updateCalendar, 60000); // 毎分カレンダーを更新
+
+      // グローバルヒントを5秒後に表示
+      setTimeout(showGlobalTip, 5000);
+
+      // ファンシーキャンバスを初期化
+      initFantasyCanvas();
+
+      // 時間に応じた挨拶をコンソールに表示
+      const now = new Date();
+      const hours = now.getHours();
       let greeting = '';
       if (hours >= 5 && hours < 12) greeting = 'おはようございます';
       else if (hours >= 12 && hours < 18) greeting = 'こんにちは';
       else greeting = 'こんばんは';
 
-      console.log(`${greeting}！現在 ${hours}:${minutes}:${seconds} です`);
-    }
-
-    updateTime();
-    setInterval(updateTime, 1000);
+      console.log(`${greeting}！現在 ${now.toLocaleTimeString('ja-JP')} です`);
+      console.log('wuxin-recreationデザイン再現完了！🎉');
+    });
 
     // スムーズスクロール
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -325,6 +662,16 @@
           target.scrollIntoView({ behavior: 'smooth' });
         }
       });
+    });
+
+    // カレンダーの日付クリックイベント
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('calendar-day') && !e.target.classList.contains('other-month')) {
+        const day = e.target.textContent;
+        const now = new Date();
+        const clickedDate = new Date(now.getFullYear(), now.getMonth(), day);
+        console.log(`クリックされた日付: ${clickedDate.toLocaleDateString('ja-JP')}`);
+      }
     });
   </script>
 </body>

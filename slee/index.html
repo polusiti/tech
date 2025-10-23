@@ -463,6 +463,7 @@
 
         var dayIndex = 1;
         var countDay = 30;
+        var row = 6;
 
         if (array_three.indexOf(mouth + 1) > -1) {
           countDay = 30;
@@ -518,27 +519,70 @@
         riliCtx.font = "900 26pt SimHei";
         riliCtx.textAlign = "center";
         var monthCN = ["一","二","三","四","五","六","七","八","九","十","十一","十二"];
-        var monthEN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+        var monthEN = [
+          " January",
+          "February",
+          "  March",
+          "  April",
+          "   May",
+          "  June",
+          "  July",
+          " August",
+          "September",
+          " October",
+          "November",
+          " December",
+        ];
 
-        riliCtx.fillText(monthCN[mouth] + "月", 300, 30);
-        riliCtx.font = "16pt Arial";
-        riliCtx.fillText(monthEN[mouth], 300, 50);
+        if (EnMonth) {
+          riliCtx.scale(1.1, 1);
+          riliCtx.fillText(monthEN[mouth], 245, 32);
+          riliCtx.resetTransform();
+        } else {
+          riliCtx.scale(1.1, 1);
+          riliCtx.fillText(monthCN[mouth] + "月", 260, 32);
+          riliCtx.resetTransform();
 
-        // 曜日ヘッダー
-        for (var i = 0; i < 7; i++) {
-          drawDate(array_week[i], 0, i);
+          riliCtx.font = "20pt SimHei";
+          riliCtx.textAlign = "end";
+          riliCtx.fillText(today + "日", 520, 38);
         }
 
-        // 日付描画
-        var startDay = firstDraw;
-        for (var i = 1; i < 7; i++) {
+        // グリッド線を描画
+        for (var i = 0; i < row; i++) {
           for (var j = 0; j < 7; j++) {
-            if ((i == 1 && j < startDay) || dayIndex > countDay) {
-              drawDate("", i, j);
-            } else {
-              drawDate(dayIndex, i, j);
-              dayIndex++;
+            riliCtx.strokeRect(
+              45 + j * cardSize * 1.7,
+              50 + i * cardSize,
+              cardSize * 1.7,
+              cardSize
+            );
+          }
+        }
+
+        dayIndex = 1;
+
+        // 日付を描画
+        for (var i = 0; i < row; i++) {
+          for (var j = 0; j < 7; j++) {
+            if (i == 0) {
+              // 最初の行に曜日を描画
+              drawDate(array_week[j], i, j);
+              continue;
             }
+
+            if (i == 1 && j < firstDraw) {
+              // 1日の描画位置を確定
+              continue;
+            }
+
+            if (dayIndex > countDay) {
+              // 月の日数のみを描画
+              break;
+            }
+
+            drawDate(dayIndex, i, j);
+            dayIndex++;
           }
         }
       }

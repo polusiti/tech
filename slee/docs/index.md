@@ -8,12 +8,6 @@ indexPage: false
 
 <IndexBigImg />
 
-# 歓迎
-
-wuxin0011の技術ブログへようこそ！
-
-## 特徴
-
 <Card :cardData="[
   {
     cardName: 'フロントエンド',
@@ -34,8 +28,6 @@ wuxin0011の技術ブログへようこそ！
     cardImgSrc: 'https://cdn.jsdelivr.net/gh/wuxin0011/wuxin@main/blog-resource/img/tools.jpg'
   }
 ]" :cardListSize="3" :carTitleColor="'#11A8CD'" />
-
-## 最新記事
 
 <Fantasy />
 

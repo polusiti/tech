@@ -1,0 +1,22 @@
+{
+  "name": "wuxin-recreation-slee",
+  "version": "1.0.0",
+  "description": "wuxin-recreation theme for Cloudflare Pages",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "serve": "serve dist"
+  },
+  "dependencies": {
+    "vuepress": "^1.9.5",
+    "vuepress-theme-vdoing": "^1.12.8",
+    "vue": "^2.7.16"
+  },
+  "devDependencies": {
+    "serve": "^14.0.0"
+  },
+  "keywords": ["vuepress", "blog", "vdoing"],
+  "author": "wuxin0011",
+  "license": "MIT"
+}

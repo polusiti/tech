@@ -6,7 +6,7 @@ const WEB_SITE = `https://${DOMAIN_NAME}`
 
 export default defineConfig4CustomTheme<VdoingThemeConfig>({
     theme: 'vdoing',
-    base: '/',
+    base: '/slee/',
     locales: {
         '/': {
             lang: 'ja-JP',

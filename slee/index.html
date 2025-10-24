@@ -553,27 +553,40 @@
         return images;
       }
 
-      // Fantasyアニメーション開始
+      // Fantasyアニメーション開始（原本の仕様通り）
       function startFantasyAnimation(images) {
-        // カレンダーを先に初期化して更新
+        // メインキャンバスを初期化（cvsは既に存在）
+        cvs.width = 360;
+        cvs.height = 640;
+        var mainCtx = cvs.getContext("2d");
+
+        // 背景を描画
+        mainCtx.fillStyle = "#f0f0f0";
+        mainCtx.fillRect(0, 0, 360, 640);
+
+        // カレンダーを描画
         drawRili();
 
-        // カレンダーを表示キャンバスにコピー
-        copyToDisplay();
+        // カレンダーを左側に配置（360x360）
+        mainCtx.drawImage(rili, 0, 0, 600, 600, 0, 0, 360, 360);
 
-        // メイン画像を背景として描画（半透明）
+        // 22.pngを右側に配置（360x640）- 元の位置関係を再現
         if (images.main && images.main.complete) {
           try {
-            displayCtx.globalAlpha = 0.7;
-            displayCtx.drawImage(images.main, 0, 0, 360, 360);
-            displayCtx.globalAlpha = 1.0;
-            console.log('Main image overlaid on calendar canvas');
+            // 22.pngを中央右に配置
+            mainCtx.drawImage(images.main, 180, 140, 180, 360);
+            console.log('22.png positioned correctly in composition');
           } catch (error) {
             console.error('Error drawing main image:', error);
           }
         }
 
-        console.log('Fantasy animation started with enhanced images (calendar first)');
+        // 最終的な表示キャンバスにコピー
+        display.width = 360;
+        display.height = 360;
+        displayCtx.drawImage(cvs, 0, 0, 360, 360);
+
+        console.log('Fantasy animation with original composition logic');
       }
 
       const loadedImages = preloadImages();
@@ -733,21 +746,10 @@
         }
       }
 
-      // 表示キャンバスにコピー（サイズ調整）
-      function copyToDisplay() {
-        display.width = 360;
-        display.height = 360;
-        displayCtx.drawImage(rili, 0, 0, 600, 600, 0, 0, 360, 360);
-      }
-
-      // 初期化
-      drawRili();
-      copyToDisplay();
-
       // 毎分更新
       setInterval(function() {
         drawRili();
-        copyToDisplay();
+        startFantasyAnimation(loadedImages);
       }, 60000);
     }
 

@@ -170,17 +170,26 @@
       line-height: 1.6;
     }
 
+    /* Global UIスタイル (HTTrack reference) */
+    .global-ui {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
     /* Fantasyコンポーネント強化スタイル */
     .fantasy {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      width: 360px;
-      height: 360px;
-      z-index: 2;
-      pointer-events: none;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
-      transition: transform 0.3s ease;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: auto;
+      z-index: 1001;
     }
 
     .fantasy:hover {
@@ -411,14 +420,7 @@
       <p>個人技術ブログへようこそ</p>
       <p style="font-size: 1.2rem; font-style: italic; color: #888;">懂得越多，懂得越少</p>
 
-      <!-- Fantasyコンポーネントをhero内に移動 -->
-      <section class="fantasy" id="fantasy">
-        <canvas id="cvs" class="hidden" width="1980" height="1080"></canvas>
-        <canvas id="screenImage" class="hidden" width="234" height="357"></canvas>
-        <canvas id="rili" class="hidden" width="600" height="600"></canvas>
-        <canvas id="display"></canvas>
       </section>
-    </section>
 
     <section class="cards-container">
       <a href="/tech/slee/web/" class="card">
@@ -921,5 +923,15 @@
       });
     });
   </script>
+
+  <!-- Global UI with Fantasy component (HTTrack reference structure) -->
+  <div class="global-ui">
+    <div class="fantasy" id="fantasy">
+      <canvas id="cvs" class="hidden" width="1980" height="1080"></canvas>
+      <canvas id="screenImage" class="hidden" width="234" height="357"></canvas>
+      <canvas id="rili" class="hidden" width="600" height="600"></canvas>
+      <canvas id="display"></canvas>
+    </div>
+  </div>
 </body>
 </html>

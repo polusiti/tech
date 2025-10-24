@@ -170,7 +170,7 @@
       line-height: 1.6;
     }
 
-    /* Global UIスタイル (HTTrack reference) */
+    /* Global UIスタイル（HTTrack正解） */
     .global-ui {
       position: fixed;
       top: 0;
@@ -181,15 +181,22 @@
       z-index: 1000;
     }
 
-    /* Fantasyコンポーネント強化スタイル */
-    .fantasy {
-      position: absolute;
+    /* Fantasyコンポーネント正確なスタイル（VuePressからの正解） */
+    .global-ui .fantasy {
+      position: fixed;
       top: 0;
-      left: 0;
+      height: 100vh;
       width: 100%;
-      height: 100%;
+      z-index: -9;
       pointer-events: auto;
-      z-index: 1001;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #display {
+      margin: auto;
     }
 
     .fantasy:hover {
@@ -924,14 +931,6 @@
     });
   </script>
 
-  <!-- Global UI with Fantasy component (HTTrack reference structure) -->
-  <div class="global-ui">
-    <div class="fantasy" id="fantasy">
-      <canvas id="cvs" class="hidden" width="1980" height="1080"></canvas>
-      <canvas id="screenImage" class="hidden" width="234" height="357"></canvas>
-      <canvas id="rili" class="hidden" width="600" height="600"></canvas>
-      <canvas id="display"></canvas>
-    </div>
-  </div>
+  <div class="global-ui"><div class="fantasy"><canvas id="cvs" width="1980" height="1080" class="hidden"></canvas> <canvas id="screenImage" width="234" height="357" class="hidden"></canvas> <canvas id="rili" width="600" height="600" class="hidden"></canvas> <canvas id="display"></canvas></div></div>
 </body>
 </html>

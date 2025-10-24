@@ -170,7 +170,7 @@
       line-height: 1.6;
     }
 
-    /* Fantasyコンポーネントスタイル */
+    /* Fantasyコンポーネント強化スタイル */
     .fantasy {
       position: absolute;
       top: 1rem;
@@ -179,15 +179,75 @@
       height: 360px;
       z-index: 2;
       pointer-events: none;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+      transition: transform 0.3s ease;
+    }
+
+    .fantasy:hover {
+      transform: scale(1.05);
     }
 
     .fantasy canvas {
       width: 100%;
       height: 100%;
+      border-radius: 8px;
     }
 
     .fantasy .hidden {
       display: none;
+    }
+
+    /* カレンダー強化 */
+    #display {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    /* ローディングインジケーター */
+    .fantasy-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 14px;
+      color: #666;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* 検索機能 */
+    .search-container {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 1001;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 8px 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      backdrop-filter: saturate(180%) blur(20px);
+    }
+
+    .search-input {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.3s;
+      font-size: 14px;
+      width: 200px;
+    }
+
+    .search-input:focus {
+      border-color: #11A8CD;
+      box-shadow: 0 0 0 2px rgba(17, 168, 205, 0.2);
+    }
+
+    .search-input::placeholder {
+      color: #999;
     }
 
     /* GlobalTipスタイル */
@@ -387,6 +447,11 @@
     </section>
   </main>
 
+  <!-- 検索機能 -->
+  <div class="search-container">
+    <input type="text" class="search-input" placeholder="サイト内検索..." id="siteSearch">
+  </div>
+
   <!-- GlobalTipコンポーネント -->
   <div id="globalTip" class="global-tip">
     <span class="icon iconfont icon-info"></span>
@@ -418,7 +483,7 @@
   <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.1/Meting.min.js" crossorigin="anonymous"></script>
 
   <script>
-    // ========== Fantasyコンポーネント実装 ==========
+    // ========== Fantasyコンポーネント改良版実装 ==========
     function initFantasy() {
       if (document.getElementsByClassName("fantasy").length !== 1) {
         return;
@@ -435,11 +500,79 @@
       var rili = document.getElementById("rili");
       var riliCtx = rili.getContext("2d");
 
+      // R2画像リソース設定
+      const IMAGE_BASE_URL = "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/";
+
+      const fantasyImages = {
+        main: IMAGE_BASE_URL + "22.png",
+        bg: IMAGE_BASE_URL + "bg%20(1).png",
+        caidai: IMAGE_BASE_URL + "caidai.png",
+        light: IMAGE_BASE_URL + "light.png",
+        mask: IMAGE_BASE_URL + "mask.png",
+        phoneLight: IMAGE_BASE_URL + "phoneLight.png",
+        screen: IMAGE_BASE_URL + "screen.png",
+        screenborder: IMAGE_BASE_URL + "screenborder.png",
+        screenLight: IMAGE_BASE_URL + "screenLight.png",
+        screenMask: IMAGE_BASE_URL + "Screenmask.png"
+      };
+
       var songInfo = {};
       var AllTimeBak = 0;
       var NowBak = 0;
       var DrawWarning = false;
       var EnMonth = false;
+
+      // 画像の事前読み込み
+      function preloadImages() {
+        const images = {};
+        let loadedCount = 0;
+        const totalImages = Object.keys(fantasyImages).length;
+
+        console.log('Loading fantasy images...');
+
+        for (const [key, url] of Object.entries(fantasyImages)) {
+          images[key] = new Image();
+          images[key].onload = () => {
+            loadedCount++;
+            console.log(`Loaded ${key}: ${loadedCount}/${totalImages}`);
+            if (loadedCount === totalImages) {
+              console.log('All fantasy images loaded successfully');
+              startFantasyAnimation(images);
+            }
+          };
+          images[key].onerror = () => {
+            console.error(`Failed to load image: ${url}`);
+            loadedCount++;
+            if (loadedCount === totalImages) {
+              console.log('All fantasy images loaded (with some errors)');
+              startFantasyAnimation(images);
+            }
+          };
+          images[key].src = url;
+        }
+        return images;
+      }
+
+      // Fantasyアニメーション開始
+      function startFantasyAnimation(images) {
+        if (images.main && images.main.complete) {
+          // メイン画像を表示キャンバスに描画
+          try {
+            displayCtx.drawImage(images.main, 0, 0, 360, 360);
+            console.log('Main image drawn to display canvas');
+          } catch (error) {
+            console.error('Error drawing main image:', error);
+          }
+        }
+
+        // カレンダーを初期化して更新
+        drawRili();
+        copyToDisplay();
+
+        console.log('Fantasy animation started with enhanced images');
+      }
+
+      const loadedImages = preloadImages();
 
       // カレンダー描画関数（元の仕様通り）
       function drawRili() {
@@ -670,15 +803,92 @@
       }, 4000);
     }
 
+    // ========== 検索機能実装 ==========
+    function initSearch() {
+      const searchInput = document.getElementById('siteSearch');
+      if (!searchInput) return;
+
+      searchInput.addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase();
+
+        // 簡易検索: ページ内のテキストをハイライト
+        if (query.length > 2) {
+          highlightText(query);
+        } else {
+          removeHighlights();
+        }
+      });
+
+      // Enterキーで検索実行
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          const query = e.target.value.toLowerCase();
+          if (query.length > 0) {
+            performSearch(query);
+          }
+        }
+      });
+    }
+
+    function highlightText(text) {
+      removeHighlights();
+
+      const walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+
+      const nodeStack = [];
+      let currentNode;
+
+      while (currentNode = walker.nextNode()) {
+        if (currentNode.parentNode.tagName === 'SCRIPT' ||
+            currentNode.parentNode.tagName === 'STYLE') {
+          continue;
+        }
+
+        const text = currentNode.nodeValue;
+        if (text.toLowerCase().includes(text)) {
+          const span = document.createElement('span');
+          span.innerHTML = text.replace(
+            new RegExp(`(${text})`, 'gi'),
+            '<mark style="background: yellow; padding: 2px;">$1</mark>'
+          );
+          currentNode.parentNode.replaceChild(span, currentNode);
+        }
+      }
+    }
+
+    function removeHighlights() {
+      const highlights = document.querySelectorAll('mark');
+      highlights.forEach(mark => {
+        const parent = mark.parentNode;
+        parent.replaceChild(document.createTextNode(mark.textContent), mark);
+        parent.normalize();
+      });
+    }
+
+    function performSearch(query) {
+      // Google検索にリダイレクト
+      window.open(`https://www.google.com/search?q=site:tech.allfrom0.top/slee ${encodeURIComponent(query)}`, '_blank');
+    }
+
     // ========== 初期化 ==========
     document.addEventListener('DOMContentLoaded', function() {
       // Fantasyコンポーネントを初期化
       initFantasy();
 
+      // 検索機能を初期化
+      initSearch();
+
       // GlobalTipを5秒後に表示
       setTimeout(showGlobalTip, 5000);
 
-      console.log('wuxin-recreationデザイン再現完了！🎉');
+      console.log('Enhanced wuxin-recreation design with R2 images loaded! 🎉');
+      console.log('Fantasy component with enhanced images initialized');
+      console.log('Search functionality initialized');
     });
 
     // スムーズスクロール

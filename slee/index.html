@@ -555,21 +555,25 @@
 
       // Fantasyアニメーション開始
       function startFantasyAnimation(images) {
+        // カレンダーを先に初期化して更新
+        drawRili();
+
+        // カレンダーを表示キャンバスにコピー
+        copyToDisplay();
+
+        // メイン画像を背景として描画（半透明）
         if (images.main && images.main.complete) {
-          // メイン画像を表示キャンバスに描画
           try {
+            displayCtx.globalAlpha = 0.7;
             displayCtx.drawImage(images.main, 0, 0, 360, 360);
-            console.log('Main image drawn to display canvas');
+            displayCtx.globalAlpha = 1.0;
+            console.log('Main image overlaid on calendar canvas');
           } catch (error) {
             console.error('Error drawing main image:', error);
           }
         }
 
-        // カレンダーを初期化して更新
-        drawRili();
-        copyToDisplay();
-
-        console.log('Fantasy animation started with enhanced images');
+        console.log('Fantasy animation started with enhanced images (calendar first)');
       }
 
       const loadedImages = preloadImages();
@@ -614,15 +618,20 @@
         function drawTodaybg(i, j) {
           riliCtx.save();
           riliCtx.beginPath();
-          riliCtx.strokeStyle = "#900";
+          riliCtx.strokeStyle = "#ff4444";
+          riliCtx.lineWidth = 2;
           riliCtx.arc(
             45 + j * cardSize * 1.7 + cardSize / 1.18,
             50 + i * cardSize + cardSize / 2,
-            cardSize / 2 - 10,
+            cardSize / 2 - 8,
             -Math.PI,
-            Math.PI * 1
+            Math.PI
           );
           riliCtx.stroke();
+
+          // 背景も追加
+          riliCtx.fillStyle = "rgba(255, 68, 68, 0.1)";
+          riliCtx.fill();
           riliCtx.closePath();
           riliCtx.restore();
         }
@@ -679,7 +688,8 @@
           riliCtx.fillText(monthCN[mouth] + "月", 260, 32);
           riliCtx.resetTransform();
 
-          riliCtx.font = "20pt SimHei";
+          riliCtx.font = "bold 20pt SimHei";
+          riliCtx.fillStyle = "#ff4444";
           riliCtx.textAlign = "end";
           riliCtx.fillText(today + "日", 520, 38);
         }

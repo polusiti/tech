@@ -13,7 +13,7 @@ const IS_DEV = process.env.NODE_ENV == 'development'
 
 export default defineConfig4CustomTheme<VdoingThemeConfig>({
     theme: 'vdoing',
-    base: '/tech/slee/',
+    base: '/',
     locales: {
         '/': {
             lang: 'ja-JP',

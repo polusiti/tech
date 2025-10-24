@@ -48,7 +48,7 @@ export default {
             function drawRili() {
                 riliCtx.clearRect(0, 0, 600, 600);
                 var date = new Date();
-                var year = date.getYear();
+                var year = date.getFullYear();
                 var mouth = date.getMonth();
                 var today = date.getDate();
                 var week = date.getDay();
@@ -259,10 +259,10 @@ export default {
 
             // Canvas奇妙的剪切蒙版实现
             var screenMask = new Image();
-            screenMask.src = this.$withBase('/fantasy/Screenmask.png');
+            screenMask.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/Screenmask.png';
 
             var screen = new Image();
-            screen.src = this.$withBase('/fantasy/screen.png');
+            screen.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/screen.png';
 
             var iv = setInterval(() => {
                 if (screen.complete && screenMask.complete) {
@@ -290,26 +290,26 @@ export default {
 
             // 加载图片
             var bg = new Image();
-            bg.src = this.$withBase('/fantasy/bg.png');
+            bg.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/bg.png';
 
             var mask = new Image();
-            mask.src = this.$withBase('/fantasy/mask.png');
+            mask.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/mask.png';
 
             var light = new Image();
-            light.src = this.$withBase('/fantasy/light.png');
+            light.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/light.png';
 
             var caidai = new Image();
-            caidai.src = this.$withBase('/fantasy/caidai.png');
+            caidai.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/caidai.png';
 
             // /fantasy/Screenmask.png
             var two = new Image();
-            two.src = this.$withBase('/fantasy/22.png');
+            two.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/22.png';
 
             var screenLight = new Image();
-            screenLight.src = this.$withBase('/fantasy/screenLight.png');
+            screenLight.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/screenLight.png';
 
             var phoneLight = new Image();
-            phoneLight.src = this.$withBase('/fantasy/phoneLight.png');
+            phoneLight.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/phoneLight.png';
 
             var phoneText = JSON.parse(
                 '[{"time":0,"text":"凌晨啦!"},{"time":6,"text":"早上好!"},{"time":8,"text":"上午好!"},{"time":11,"text":"你吃了吗"},{"time":13,"text":"下午好鸭!"},{"time":16,"text":"傍晚咯!"},{"time":19,"text":"晚安!"}]'

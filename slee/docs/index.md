@@ -4,6 +4,7 @@ heroImage: /picgo/icon.png
 heroText: wuxin0011 blog
 tagline: 個人技術ブログへようこそ
 indexPage: false
+pageClass: vdoing-index-class
 ---
 
 <IndexBigImg />

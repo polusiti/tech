@@ -259,10 +259,10 @@ export default {
 
             // Canvas奇妙的剪切蒙版实现
             var screenMask = new Image();
-            screenMask.src = "/fantasy/Screenmask.png";
+            screenMask.src = this.$withBase('/fantasy/Screenmask.png');
 
             var screen = new Image();
-            screen.src = "/fantasy/screen.png";
+            screen.src = this.$withBase('/fantasy/screen.png');
 
             var iv = setInterval(() => {
                 if (screen.complete && screenMask.complete) {
@@ -290,26 +290,26 @@ export default {
 
             // 加载图片
             var bg = new Image();
-            bg.src = "/fantasy/bg.png";
+            bg.src = this.$withBase('/fantasy/bg.png');
 
             var mask = new Image();
-            mask.src = "/fantasy/mask.png";
+            mask.src = this.$withBase('/fantasy/mask.png');
 
             var light = new Image();
-            light.src = "/fantasy/light.png";
+            light.src = this.$withBase('/fantasy/light.png');
 
             var caidai = new Image();
-            caidai.src = "/fantasy/caidai.png";
+            caidai.src = this.$withBase('/fantasy/caidai.png');
 
             // /fantasy/Screenmask.png
             var two = new Image();
-            two.src = "/fantasy/22.png";
+            two.src = this.$withBase('/fantasy/22.png');
 
             var screenLight = new Image();
-            screenLight.src = "/fantasy/screenLight.png";
+            screenLight.src = this.$withBase('/fantasy/screenLight.png');
 
             var phoneLight = new Image();
-            phoneLight.src = "/fantasy/phoneLight.png";
+            phoneLight.src = this.$withBase('/fantasy/phoneLight.png');
 
             var phoneText = JSON.parse(
                 '[{"time":0,"text":"凌晨啦!"},{"time":6,"text":"早上好!"},{"time":8,"text":"上午好!"},{"time":11,"text":"你吃了吗"},{"time":13,"text":"下午好鸭!"},{"time":16,"text":"傍晚咯!"},{"time":19,"text":"晚安!"}]'

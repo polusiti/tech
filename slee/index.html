@@ -551,40 +551,44 @@
         return images;
       }
 
-      // Fantasyアニメーション開始（原本の仕様通り）
+      // Fantasyアニメーション開始（HTTrack本物サイトの仕様通り）
       function startFantasyAnimation(images) {
-        // メインキャンバスを初期化（cvsは既に存在）
-        cvs.width = 360;
-        cvs.height = 640;
-        var mainCtx = cvs.getContext("2d");
+        // CanvasはHTMLで定義されたサイズを維持（1980x1080）
+        var ctx = cvs.getContext("2d");
 
         // 背景を描画
-        mainCtx.fillStyle = "#f0f0f0";
-        mainCtx.fillRect(0, 0, 360, 640);
+        ctx.fillStyle = "#f0f0f0";
+        ctx.fillRect(0, 0, 1980, 1080);
 
         // カレンダーを描画
         drawRili();
 
-        // カレンダーを左側に配置（360x360）
-        mainCtx.drawImage(rili, 0, 0, 600, 600, 0, 0, 360, 360);
+        // カレンダーを配置（HTTrackの位置を参考）
+        ctx.drawImage(rili, 310, 360, 600, 600);
 
-        // 22.pngを右側に配置（360x640）- 元の位置関係を再現
+        // 22.pngを配置（HTTrackの位置を参考）
         if (images.main && images.main.complete) {
           try {
-            // 22.pngを中央右に配置
-            mainCtx.drawImage(images.main, 180, 140, 180, 360);
+            // 22.pngを配置
+            ctx.drawImage(images.main, 1319, 345);
             console.log('22.png positioned correctly in composition');
           } catch (error) {
             console.error('Error drawing main image:', error);
           }
         }
 
-        // 最終的な表示キャンバスにコピー
-        display.width = 360;
-        display.height = 360;
-        displayCtx.drawImage(cvs, 0, 0, 360, 360);
+        // 表示キャンバスにコピー（レスポンシブ対応）
+        copyToDisplay();
 
-        console.log('Fantasy animation with original composition logic');
+        console.log('Fantasy animation with HTTrack reference implementation');
+      }
+
+      // 表示キャンバスにコピー（HTTrackサイトのロジック）
+      function copyToDisplay() {
+        var scale = Math.min(window.innerWidth / 1980, window.innerHeight / 1080);
+        display.width = window.innerWidth;
+        display.height = window.innerHeight;
+        displayCtx.drawImage(cvs, 0, 0, 1980, 1080, 0, 0, window.innerWidth, window.innerHeight);
       }
 
       const loadedImages = preloadImages();
@@ -744,10 +748,15 @@
         }
       }
 
+      // resizeイベント処理
+      window.addEventListener('resize', function() {
+        copyToDisplay();
+      });
+
       // 毎分更新
       setInterval(function() {
         drawRili();
-        startFantasyAnimation(loadedImages);
+        copyToDisplay();
       }, 60000);
     }
 

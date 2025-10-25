@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html class="hide-aside" lang="ja" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Ark Mechanical UI - Akilar Style</title>
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://npm.elemecdn.com/@fortawesome/fontawesome-free@6.2.1/css/all.min.css"
+        media="print" onload='this.media="all"'>
+    <link rel="stylesheet" href="https://npm.elemecdn.com/akiblog@1.0.2/css/custom.css" media="defer"
+        onload='this.media="all"'>
+    <link rel="stylesheet" href="https://npm.elemecdn.com/akiblog@1.0.2/css/animate.min.css" media="print"
+        onload='this.media="screen"'>
+    <link rel="stylesheet" href="https://npm.elemecdn.com/swiper@8.4.2/swiper-bundle.min.css" media="print"
+        onload='this.media="all"'>
+    <script async
+        data-pace-options='{ "restartOnRequestAfter":false,"eventLag":false,"target": "#Ark-loading-progress"}'
+        src="https://npm.elemecdn.com/pace-js@latest/pace.min.js"></script>
+    <script defer src="https://at.alicdn.com/t/c/font_3344355_6og082zqzfd.js"></script>
+    <style>
+        /* Swiper スライドの幅を固定して重なりを防ぐ */
+        .menu-item-first.swiper-slide {
+            width: auto !important;
+            min-width: 180px !important;
+            flex-shrink: 0 !important;
+        }
+
+        .menu-item-wrapper {
+            display: flex !important;
+        }
+
+        .site-page {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Ark Cab Box - ローディングアニメーション -->
+    <div id="ark-cab-box">
+        <div class="ark-cab" id="ark-cab">
+            <div class="ark-cab-top-triangle"></div>
+            <div class="ark-cab-bottom-left-triangle"></div>
+            <div class="ark-cab-bottom-right-triangle"></div>
+            <div class="ark-cab-top-left-flash"></div>
+            <div class="ark-cab-top-right-flash"></div>
+            <div class="ark-cab-top-left-border"></div>
+            <div class="ark-cab-top-right-border"></div>
+            <div class="ark-cab-bottom-center-border"></div>
+            <div class="ark-cab-bottom-left-border"></div>
+            <div class="ark-cab-bottom-right-border"></div>
+            <div class="ark-cab-center-left-border"></div>
+            <div class="ark-cab-center-right-border"></div>
+            <div class="ark-cab-main-container">
+                <div class="ark-cab-outside-border"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Box -->
+    <div id="loading-box">
+        <div id="ark-loading">
+            <div class="ark-loading-border">
+                <div class="ark-loading-container" id="Ark-loading-progress">
+                    <div class="ark-loading-tip"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Web Background -->
+    <div id="web-bg">
+        <div id="default-bg" style="background:url(https://npm.elemecdn.com/akiblog@1.0.2/img/default_bg.webp)"></div>
+        <div id="dark-bg" style="background:url(https://npm.elemecdn.com/akiblog@1.0.2/img/dark_bg.webp)"></div>
+        <div id="mobile-bg" style="background:url(https://npm.elemecdn.com/akiblog@1.0.2/img/mobile_bg.webp)"></div>
+        <div id="mobile-dark-bg" style="background:url(https://npm.elemecdn.com/akiblog@1.0.2/img/mobile_dark_bg.webp)">
+        </div>
+    </div>
+
+    <!-- Page Container -->
+    <div class="page" id="body-wrap">
+        <header class="full_page" id="page-header">
+            <!-- Ark Menu Box -->
+            <div class="arksink arkend" id="ark-menu-box">
+                <div class="ark-menu-horizontal-left">
+                    <div class="ark-menu-horizontal-left-line"></div>
+                </div>
+                <div class="ark-menu-horizontal-right">
+                    <div class="ark-menu-horizontal-right-line"></div>
+                </div>
+                <div class="ark-menu-horizontal-top">
+                    <div class="ark-menu-horizontal-top-line"></div>
+                </div>
+                <div class="ark-menu-horizontal-bottom">
+                    <div class="ark-menu-horizontal-bottom-line"></div>
+                </div>
+                <div class="ark-menu" id="ark-menu">
+                    <div class="menu-item-container">
+                        <div class="swiper-wrapper menu-item-wrapper">
+                            <div class="menu-item-first swiper-slide">
+                                <div class="site-page faa-parent animated-hover">
+                                    <svg class="icon faa-tada" aria-hidden="true">
+                                        <use xlink:href="#icon-laptop"></use>
+                                    </svg>
+                                    <span class="site-page-link" onclick='alert("ホーム")'>ホーム</span>
+                                </div>
+                            </div>
+                            <div class="menu-item-first swiper-slide">
+                                <div class="site-page faa-parent animated-hover">
+                                    <svg class="icon faa-tada" aria-hidden="true">
+                                        <use xlink:href="#icon-Calendar"></use>
+                                    </svg>
+                                    <span class="site-page-link" onclick='alert("アーカイブ")'>アーカイブ</span>
+                                </div>
+                            </div>
+                            <div class="menu-item-first swiper-slide">
+                                <div class="site-page faa-parent animated-hover">
+                                    <svg class="icon faa-tada" aria-hidden="true">
+                                        <use xlink:href="#icon-strategy"></use>
+                                    </svg>
+                                    <span class="site-page-link" onclick='alert("カテゴリー")'>カテゴリー</span>
+                                </div>
+                            </div>
+                            <div class="menu-item-first swiper-slide">
+                                <div class="site-page faa-parent animated-hover">
+                                    <svg class="icon faa-tada" aria-hidden="true">
+                                        <use xlink:href="#icon-strategy"></use>
+                                    </svg>
+                                    <span class="site-page-link" onclick='alert("タグ")'>タグ</span>
+                                </div>
+                            </div>
+                            <div class="menu-item-first swiper-slide">
+                                <div class="site-page faa-parent animated-hover">
+                                    <svg class="icon faa-tada" aria-hidden="true">
+                                        <use xlink:href="#icon-forumdiscusstion"></use>
+                                    </svg>
+                                    <span class="site-page-link" onclick='alert("コミュニティ")'>コミュニティ</span>
+                                </div>
+                            </div>
+                            <div class="menu-item-first swiper-slide">
+                                <div class="site-page faa-parent animated-hover">
+                                    <svg class="icon faa-tada" aria-hidden="true">
+                                        <use xlink:href="#icon-connection"></use>
+                                    </svg>
+                                    <span class="site-page-link" onclick='alert("リンク集")'>リンク集</span>
+                                </div>
+                            </div>
+                            <div class="menu-item-first swiper-slide">
+                                <div class="site-page faa-parent animated-hover">
+                                    <svg class="icon faa-tada" aria-hidden="true">
+                                        <use xlink:href="#icon-letter"></use>
+                                    </svg>
+                                    <span class="site-page-link" onclick='alert("お問い合わせ")'>お問い合わせ</span>
+                                </div>
+                            </div>
+                            <div class="menu-item-first swiper-slide">
+                                <div class="site-page faa-parent animated-hover">
+                                    <svg class="icon faa-tada" aria-hidden="true">
+                                        <use xlink:href="#icon-strategy"></use>
+                                    </svg>
+                                    <span class="site-page-link" onclick='alert("ギャラリー")'>ギャラリー</span>
+                                </div>
+                            </div>
+                            <div class="menu-item-first swiper-slide">
+                                <div class="site-page faa-parent animated-hover">
+                                    <svg class="icon faa-tada" aria-hidden="true">
+                                        <use xlink:href="#icon-unicorn"></use>
+                                    </svg>
+                                    <span class="site-page-link" onclick='alert("アニメリスト")'>アニメリスト</span>
+                                </div>
+                            </div>
+                            <div class="menu-item-first swiper-slide">
+                                <div class="site-page faa-parent animated-hover">
+                                    <svg class="icon faa-tada" aria-hidden="true">
+                                        <use xlink:href="#icon-digitalpayment"></use>
+                                    </svg>
+                                    <span class="site-page-link" onclick='alert("サポート")'>サポート</span>
+                                </div>
+                            </div>
+                            <div class="menu-item-first swiper-slide">
+                                <div class="site-page faa-parent animated-hover">
+                                    <svg class="icon faa-tada" aria-hidden="true">
+                                        <use xlink:href="#icon-Achievement"></use>
+                                    </svg>
+                                    <span class="site-page-link" onclick='alert("About")'>About</span>
+                                </div>
+                            </div>
+                            <div class="menu-item-first swiper-slide">
+                                <div class="site-page faa-parent animated-hover">
+                                    <svg class="icon faa-tada" aria-hidden="true">
+                                        <use xlink:href="#icon-config"></use>
+                                    </svg>
+                                    <span class="site-page-link" onclick='alert("設定")'>設定</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ark-menu-pagination"></div>
+                    </div>
+                </div>
+                <svg class="icon" id="ark-menu-end-btn" aria-hidden="true">
+                    <use xlink:href="#icon-YunTai-unfold"></use>
+                </svg>
+            </div>
+
+            <!-- Ark Nav Box -->
+            <div class="ark-nav-box" id="ark-nav-box">
+                <div class="ark-nav">
+                    <div class="ark-nav-message-container">
+                        <div class="ark-nav-message-item ark-nav-message-weather">
+                            <div class="ark-nav-message-weather-box" id="he-plugin-simple"></div>
+                        </div>
+                        <div class="ark-nav-message-item ark-nav-message-date">
+                            <div class="ark-nav-message-date-box" id="ark-nav-message-date-box"></div>
+                            <div class="ark-nav-message-title-box" id="ark-nav-message-title-box">
+                                <a id="site-name" title="Ark Mechanical UI">Ark Mechanical UI</a>
+                                <span id="time-display"
+                                    style="margin-left: 15px; font-size: 0.9em; opacity: 0.8;"></span>
+                            </div>
+                        </div>
+                        <div class="ark-nav-message-item ark-nav-message-function">
+                            <div class="ark-menu-random-post" id="ark-menu-random-post">
+                                <div class="ark-nav-function faa-parent animated-hover" title="ランダム記事"
+                                    onclick='alert("ランダム記事")'>
+                                    <svg class="faa-tada icon" style="height:25px;width:25px" aria-hidden="true">
+                                        <use xlink:href="#icon-partial-discharge"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div id="search-button">
+                                <a class="ark-nav-function search faa-parent animated-hover" title="検索"
+                                    onclick='alert("検索")'>
+                                    <svg class="faa-tada icon" style="height:25px;width:25px" aria-hidden="true">
+                                        <use xlink:href="#icon-camera-GOTO_PRESET"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="ark-menu-start-btn" id="ark-menu-start-btn">
+                                <a class="ark-nav-function faa-parent animated-hover" title="メニュー">
+                                    <svg class="faa-tada icon" style="height:25px;width:25px" aria-hidden="true">
+                                        <use xlink:href="#icon-menu-zizhanbaowei"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Site Info -->
+            <div id="site-info">
+                <h1 id="site-title">Ark Mechanical UI</h1>
+                <div id="site-subtitle"><span id="subtitle">メカニカルデザインの世界へようこそ</span></div>
+            </div>
+        </header>
+    </div>
+
+    <script>
+        var preloader = {
+            endLoading: () => {
+                document.body.style.overflow = "auto";
+                document.getElementById("ark-cab-box").classList.add("arkend");
+                document.getElementById("loading-box").classList.add("arkend");
+                setTimeout(function () {
+                    document.getElementById("ark-cab-box").classList.add("arksink");
+                    document.getElementById("loading-box").classList.add("loaded");
+                }, 1800);
+                if (sessionStorage.getItem("isReload")) return true;
+                sessionStorage.setItem("isReload", true);
+            },
+            initLoading: () => {
+                document.body.style.overflow = "";
+                var cabBox = document.getElementById("ark-cab-box");
+                var loadingBox = document.getElementById("loading-box");
+                if (cabBox && cabBox.className.indexOf("arksink") > -1) {
+                    cabBox.classList.remove("arksink");
+                    document.getElementById("ark-cab-box").classList.remove("arkend");
+                }
+                if (loadingBox && loadingBox.className.indexOf("loaded") > -1) {
+                    loadingBox.classList.remove("loaded");
+                    loadingBox.classList.remove("arkend");
+                }
+            }
+        };
+
+        window.addEventListener("load", () => {
+            preloader.endLoading();
+        });
+
+        document.getElementById("loading-box").addEventListener("click", () => {
+            preloader.endLoading();
+        });
+
+        // Ark Menu Toggle
+        document.getElementById("ark-menu-start-btn").addEventListener("click", () => {
+            const menuBox = document.getElementById("ark-menu-box");
+            if (menuBox.classList.contains("arksink")) {
+                menuBox.classList.remove("arksink");
+                menuBox.classList.remove("arkend");
+            } else {
+                menuBox.classList.add("arksink");
+                setTimeout(() => {
+                    menuBox.classList.add("arkend");
+                }, 300);
+            }
+        });
+
+        document.getElementById("ark-menu-end-btn").addEventListener("click", () => {
+            const menuBox = document.getElementById("ark-menu-box");
+            menuBox.classList.add("arksink");
+            setTimeout(() => {
+                menuBox.classList.add("arkend");
+            }, 300);
+        });
+
+        // Date Display (日本語)
+        function updateDate() {
+            const dateBox = document.getElementById("ark-nav-message-date-box");
+            const now = new Date();
+
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+
+            const weekdays = ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'];
+            const weekday = weekdays[now.getDay()];
+
+            dateBox.textContent = `${year}年${month}月${day}日 ${weekday}`;
+        }
+        updateDate();
+        setInterval(updateDate, 60000);
+
+        // Time Display
+        function updateTime() {
+            const titleBox = document.getElementById("ark-nav-message-title-box");
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const timeDisplay = document.getElementById('time-display');
+            if (timeDisplay) {
+                timeDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+            }
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+
+    <!-- Swiper JS -->
+    <script src="https://npm.elemecdn.com/swiper@8.4.2/swiper-bundle.min.js"></script>
+    <script>
+        // Swiper初期化
+        document.addEventListener('DOMContentLoaded', function () {
+            // Swiperの初期化
+            if (typeof Swiper !== 'undefined') {
+                const menuSwiper = new Swiper('.menu-item-container', {
+                    slidesPerView: 'auto',
+                    spaceBetween: 15,
+                    loop: false,
+                    centeredSlides: false,
+                    pagination: {
+                        el: '.ark-menu-pagination',
+                        clickable: true,
+                    },
+                    freeMode: true,
+                    mousewheel: {
+                        forceToAxis: true,
+                    },
+                });
+
+                console.log('Swiper initialized with', menuSwiper.slides.length, 'slides');
+            }
+
+            // 日付を強制的に日本語化（外部JSの影響を上書き）
+            setTimeout(function () {
+                updateDate();
+                updateTime();
+
+                // MutationObserverで日付の変更を監視
+                const dateBox = document.getElementById("ark-nav-message-date-box");
+                if (dateBox) {
+                    const observer = new MutationObserver(function (mutations) {
+                        mutations.forEach(function (mutation) {
+                            if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                                const text = dateBox.textContent;
+                                // 中国語の「星期」が含まれていたら日本語に置き換え
+                                if (text.includes('星期')) {
+                                    updateDate();
+                                }
+                            }
+                        });
+                    });
+
+                    observer.observe(dateBox, {
+                        childList: true,
+                        characterData: true,
+                        subtree: true
+                    });
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>

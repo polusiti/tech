@@ -13,12 +13,12 @@ const IS_DEV = process.env.NODE_ENV == 'development'
 
 export default defineConfig4CustomTheme<VdoingThemeConfig>({
     theme: 'vdoing',
-    base: '/',
+    base: '/slee/',  // VuePressは/slee/配下でのみ動作
     locales: {
         '/': {
             lang: 'ja-JP',
-            title: "wuxin0011`blog",
-            description: '個人技術ブログへようこそ',
+            title: "Tech Blog",
+            description: '技術ブログ',
         }
     },
 
@@ -28,26 +28,26 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         logo: '/picgo/icon.png',
         repo: 'polusiti/tech',
         searchMaxSuggestions: 10,
-        lastUpdated: '上次更新',
-        docsDir: 'docs',
+        lastUpdated: '最終更新',
+        docsDir: 'slee/docs',
         docsBranch: 'main',
         editLinks: true,
-        editLinkText: '编辑',
+        editLinkText: '編集',
 
-        // Vdoing主题配置
+        // Vdoing主題配置
         contentBgStyle: 1,
         defaultMode: 'auto',
         sidebar: 'structuring',
 
         author: {
-            name: 'wuxin0011',
-            link: 'https://github.com/wuxin0011'
+            name: 'Tech Blog',
+            link: 'https://github.com/polusiti/tech'
         },
 
         blogger: {
             avatar: 'https://avatars.githubusercontent.com/u/65836396?v=4',
-            name: 'wuxin0011',
-            slogan: '懂得越多，懂得越少',
+            name: 'Tech Blog',
+            slogan: '技術を深く、広く',
         },
 
         indexImg: {
@@ -74,29 +74,9 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         social: {
             icons: [
                 {
-                    iconClass: 'icon-youjian',
-                    title: '发邮件',
-                    link: 'mailto:2191377759@qq.com',
-                },
-                {
                     iconClass: 'icon-github',
                     title: 'GitHub',
-                    link: 'https://github.com/wuxin0011',
-                },
-                {
-                    iconClass: 'icon-bilibili',
-                    title: 'bilibili',
-                    link: 'https://space.bilibili.com/259072250',
-                },
-                {
-                    iconClass: 'icon-bokeyuan',
-                    title: '博客园',
-                    link: 'https://www.cnblogs.com/wuxin001/',
-                },
-                {
-                    iconClass: 'icon-juejin',
-                    title: '掘金',
-                    link: 'https://juejin.cn/user/2019183212631912',
+                    link: 'https://github.com/polusiti/tech',
                 },
             ],
         },
@@ -104,13 +84,13 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         footer: {
             createYear: 2020,
             copyrightInfo:
-                'wuxin0011 | <a href="https://github.com/polusiti/tech" target="_blank">MIT License</a>',
+                'Tech Blog | <a href="https://github.com/polusiti/tech" target="_blank">MIT License</a>',
         },
 
         extendFrontmatter: {
             author: {
-                name: 'wuxin0011',
-                link: 'https://github.com/wuxin0011'
+                name: 'Tech Blog',
+                link: 'https://github.com/polusiti/tech'
             }
         },
 

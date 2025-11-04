@@ -1,4 +1,8 @@
-# Cloudflare Pages Redirects for VuePress SPA
+# Cloudflare Pages Redirects
 
-# VuePress SPA fallback - 404 pages redirect to index.html
-/*    /index.html   200
+# VuePress blog under /slee path
+# Note: VuePress build outputs to slee/docs/.vuepress/dist/
+# Deploy strategy: Copy dist contents to /slee/ during build
+
+# Root stays as Windows 98 style desktop
+# All other paths should work normally

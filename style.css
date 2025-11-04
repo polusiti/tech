@@ -1,9 +1,12 @@
+/* Windows 98 Style - Combined with 98.css compatibility */
+
 body {
     background-color: #008080; /* Classic Windows teal background */
-    font-family: "Pixelated MS Sans Serif", "Arial";
+    font-family: "Pixelated MS Sans Serif", Arial;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    user-select: none;
 }
 
 /* Loading screen */
@@ -13,7 +16,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #008080;
+    background: #000000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,27 +29,38 @@ body {
 }
 
 .windows-logo {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.windows-logo svg {
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8));
 }
 
 .loading-text {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    color: white;
+    letter-spacing: 2px;
 }
 
 .loading-bar {
-    width: 300px;
-    height: 20px;
-    border: 2px solid #ffffff;
+    width: 400px;
+    height: 24px;
+    border: 3px solid #c0c0c0;
+    border-top-color: #ffffff;
+    border-left-color: #ffffff;
+    border-right-color: #808080;
+    border-bottom-color: #808080;
     background: #000080;
     position: relative;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .loading-progress {
     height: 100%;
-    background: linear-gradient(90deg, #ffffff, #c0c0c0);
+    background: linear-gradient(90deg, #00ff00, #00cc00);
     width: 0%;
     transition: width 3s ease-in-out;
     animation: loadingAnimation 3s ease-in-out forwards;
@@ -57,11 +71,22 @@ body {
     100% { width: 100%; }
 }
 
+/* Desktop with proper stacking */
 .desktop {
     height: calc(100vh - 28px); /* Full height minus taskbar */
     position: relative;
+    background: #008080;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(255, 255, 255, 0.03) 2px,
+            rgba(255, 255, 255, 0.03) 4px
+        );
 }
 
+/* Taskbar */
 .taskbar {
     position: fixed;
     bottom: 0;
@@ -73,7 +98,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 4px;
+    padding: 0 2px;
+    z-index: 1000;
 }
 
 .start-button {
@@ -85,42 +111,40 @@ body {
     border-left-color: #ffffff;
     border-right-color: #808080;
     border-bottom-color: #808080;
-    box-shadow: 1px 1px 0 #000000;
-}
-
-.start-button img {
-    width: 16px;
-    height: 16px;
+    background: #c0c0c0;
+    color: #000;
+    font-family: "Pixelated MS Sans Serif", Arial;
+    font-size: 11px;
+    cursor: pointer;
     margin-right: 4px;
 }
 
-.desktop-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80px;
-    margin: 20px;
-    text-align: center;
+.start-button:hover {
+    background: #000080;
     color: white;
-    cursor: pointer;
+    border-top-color: #ffffff;
+    border-left-color: #ffffff;
+    border-right-color: #ffffff;
+    border-bottom-color: #ffffff;
 }
 
-.desktop-icon img {
-    width: 32px;
-    height: 32px;
-    margin-bottom: 8px;
+.start-button img, .start-button i {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    font-size: 14px;
 }
 
-.desktop-icon span {
-    background-color: #000080; /* Blue selection background */
-    padding: 2px 4px;
+.start-button span {
+    font-weight: bold;
 }
 
+/* Start Menu */
 .start-menu {
     position: absolute;
     bottom: 28px; /* Position it above the taskbar */
     left: 0;
-    width: 150px;
+    width: 180px;
     background-color: #c0c0c0;
     border: 2px solid #c0c0c0;
     border-top-color: #ffffff;
@@ -128,6 +152,8 @@ body {
     border-right-color: #808080;
     border-bottom-color: #808080;
     padding: 2px;
+    z-index: 9999;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .start-menu ul {
@@ -139,21 +165,30 @@ body {
 .start-menu li {
     display: flex;
     align-items: center;
-    padding: 4px 8px;
+    padding: 6px 8px;
     cursor: pointer;
+    font-family: "Pixelated MS Sans Serif", Arial;
+    font-size: 11px;
+    color: #000;
 }
 
 .start-menu li:hover {
-    background-color: #000080; /* Blue selection background */
+    background-color: #000080;
     color: white;
 }
 
-.start-menu li img {
-    width: 24px;
-    height: 24px;
+.start-menu li img, .start-menu li i {
+    width: 20px;
+    height: 20px;
     margin-right: 8px;
+    font-size: 16px;
 }
 
+.start-menu li span {
+    font-weight: normal;
+}
+
+/* System Tray */
 .system-tray {
     display: flex;
     align-items: center;
@@ -162,7 +197,7 @@ body {
 
 .tray-icons {
     display: flex;
-    gap: 4px;
+    gap: 2px;
 }
 
 .tray-icon {
@@ -179,6 +214,7 @@ body {
     justify-content: center;
     font-size: 10px;
     cursor: pointer;
+    color: #000;
 }
 
 .tray-icon:hover {
@@ -199,6 +235,7 @@ body {
     cursor: pointer;
     min-width: 60px;
     text-align: center;
+    color: #000;
 }
 
 .clock:hover {
@@ -206,52 +243,7 @@ body {
     color: white;
 }
 
-/* Desktop with proper stacking */
-.desktop {
-    height: calc(100vh - 28px); /* Full height minus taskbar */
-    position: relative;
-    z-index: 1;
-}
-
-/* Screensaver */
-#screensaver {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    z-index: 100000;
-    color: #fff;
-    display: none; /* Hidden by default */
-    overflow: hidden;
-}
-
-#scrolling-text {
-    position: absolute;
-    font-size: 3em;
-    white-space: nowrap;
-    animation: scroll-text 20s linear infinite;
-}
-
-@keyframes scroll-text {
-    0% {
-        transform: translateX(100vw);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-#starfield {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-
+/* Desktop Icons */
 .desktop-icon {
     display: flex;
     flex-direction: column;
@@ -276,11 +268,13 @@ body {
     color: white;
 }
 
-.desktop-icon img {
+.desktop-icon img, .desktop-icon i {
     width: 32px;
     height: 32px;
     margin-bottom: 8px;
     pointer-events: none;
+    font-size: 28px;
+    color: white;
 }
 
 .desktop-icon span {
@@ -289,6 +283,9 @@ body {
     font-size: 11px;
     word-wrap: break-word;
     pointer-events: none;
+    font-family: "Pixelated MS Sans Serif", Arial;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
 
 /* Window z-index management */
@@ -298,6 +295,8 @@ body {
     padding: 3px;
     position: absolute;
     z-index: 1000;
+    min-width: 200px;
+    min-height: 150px;
 }
 
 /* Context Menu */
@@ -313,6 +312,8 @@ body {
     z-index: 10000;
     min-width: 150px;
     box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-family: "Pixelated MS Sans Serif", Arial;
+    font-size: 11px;
 }
 
 .context-menu ul {
@@ -327,6 +328,7 @@ body {
     font-size: 11px;
     font-family: "Pixelated MS Sans Serif", Arial;
     position: relative;
+    color: #000;
 }
 
 .context-menu li:hover {
@@ -334,15 +336,12 @@ body {
     color: white;
 }
 
-.context-menu li::before {
-    content: "";
-    position: absolute;
-    left: 4px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    background-size: contain;
+.context-menu li[style*="background"] {
+    background: #808080 !important;
+    height: 1px;
+    padding: 0;
+    margin: 4px 0;
+    cursor: default;
 }
 
 /* Add window maximize/minimize functionality */
@@ -389,6 +388,7 @@ body {
     font-family: "Pixelated MS Sans Serif", Arial;
     cursor: pointer;
     min-width: 80px;
+    color: #000;
 }
 
 .taskbar-item button:hover {
@@ -439,7 +439,7 @@ body {
     color: white;
 }
 
-.desktop-icon img {
+.desktop-icon img, .desktop-icon i {
     width: 32px;
     height: 32px;
     margin-bottom: 8px;
@@ -450,4 +450,69 @@ body {
     padding: 2px 4px;
     font-size: 11px;
     word-wrap: break-word;
+}
+
+/* Screensaver */
+#screensaver {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 100000;
+    color: #fff;
+    display: none; /* Hidden by default */
+    overflow: hidden;
+}
+
+#scrolling-text {
+    position: absolute;
+    font-size: 3em;
+    white-space: nowrap;
+    animation: scroll-text 20s linear infinite;
+}
+
+@keyframes scroll-text {
+    0% {
+        transform: translateX(100vw);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+#starfield {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive fixes */
+@media (max-width: 640px) {
+    .loading-bar {
+        width: 300px;
+    }
+
+    .loading-text {
+        font-size: 20px;
+    }
+
+    .desktop-icon {
+        width: 60px;
+        margin: 15px;
+    }
+
+    .desktop-icon img, .desktop-icon i {
+        width: 24px;
+        height: 24px;
+        font-size: 20px;
+    }
+
+    .desktop-icon span {
+        font-size: 9px;
+        padding: 1px 2px;
+    }
 }

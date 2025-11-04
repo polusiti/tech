@@ -1,4 +1,4 @@
-// Windows 98 Boot Sequence
+// Windows 98 Boot Sequence - Simple and Authentic
 window.addEventListener('DOMContentLoaded', () => {
     simulateWindows98Boot();
 });
@@ -6,116 +6,15 @@ window.addEventListener('DOMContentLoaded', () => {
 function simulateWindows98Boot() {
     const loadingScreen = document.getElementById('loading-screen');
     const desktop = document.getElementById('desktop');
-    const loadingText = loadingScreen.querySelector('.loading-text');
     const loadingProgress = loadingScreen.querySelector('.loading-progress');
-    const loadingContent = loadingScreen.querySelector('.loading-content');
 
-    // Stage 1: Initial POST (Power-On Self-Test) screen
+    // Simple boot sequence
     setTimeout(() => {
-        loadingText.textContent = 'Windows 98';
-        const logo = loadingContent.querySelector('.windows-logo');
-        logo.innerHTML = `
-            <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <rect x="10" y="10" width="35" height="35" fill="#ff0000"/>
-                <rect x="55" y="10" width="35" height="35" fill="#00ff00"/>
-                <rect x="10" y="55" width="35" height="35" fill="#0066ff"/>
-                <rect x="55" y="55" width="35" height="35" fill="#ffff00"/>
-            </svg>
-            <div style="margin-top: 10px; font-size: 14px;">Copyright © 1981-1998 Microsoft Corp.</div>
-        `;
-    }, 500);
-
-    // Stage 2: Memory test and hardware detection
-    setTimeout(() => {
-        loadingText.textContent = 'Memory Test: 65536K OK';
-        loadingProgress.style.width = '20%';
-    }, 1500);
-
-    // Stage 3: Initialize system components
-    setTimeout(() => {
-        loadingText.textContent = 'Initializing System Components...';
-        loadingProgress.style.width = '40%';
-
-        // Add hardware detection messages
-        const hardwareDiv = document.createElement('div');
-        hardwareDiv.style.cssText = 'position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); font-size: 11px; color: white; text-align: left; width: 300px;';
-        hardwareDiv.innerHTML = `
-            <div>Detecting Primary Master...</div>
-            <div>Detecting Primary Slave...</div>
-            <div>Detecting Secondary Master...</div>
-            <div>Detecting Secondary Slave...</div>
-        `;
-        loadingContent.appendChild(hardwareDiv);
-
-        // Simulate hardware detection
-        setTimeout(() => {
-            hardwareDiv.innerHTML = `
-                <div>Primary Master: ST-3200A</div>
-                <div>Primary Slave: None</div>
-                <div>Secondary Master: CD-ROM</div>
-                <div>Secondary Slave: None</div>
-            `;
-        }, 1000);
-    }, 2500);
-
-    // Stage 4: Start Windows 98 GUI
-    setTimeout(() => {
-        loadingText.textContent = 'Starting Windows 98...';
-        loadingProgress.style.width = '60%';
-
-        // Remove hardware detection
-        const hardwareDiv = loadingContent.querySelector('div[style*="bottom: 80px"]');
-        if (hardwareDiv) hardwareDiv.remove();
-    }, 4000);
-
-    // Stage 5: Load drivers and initialize GUI
-    setTimeout(() => {
-        loadingText.textContent = 'Loading Windows 98 Drivers...';
-        loadingProgress.style.width = '80%';
-
-        // Show driver loading messages
-        const driverDiv = document.createElement('div');
-        driverDiv.style.cssText = 'position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); font-size: 10px; color: #c0c0c0; text-align: center;';
-        driverDiv.innerHTML = `
-            <div>HIMEM: Testing extended memory... OK</div>
-            <div>Loading CD-ROM drivers... OK</div>
-            <div>Initializing display adapter... OK</div>
-            <div>Setting up virtual memory... OK</div>
-        `;
-        loadingContent.appendChild(driverDiv);
-    }, 5500);
-
-    // Stage 6: Final boot screen with cloud background
-    setTimeout(() => {
-        loadingText.textContent = 'Windows 98';
         loadingProgress.style.width = '100%';
+    }, 100);
 
-        // Update to classic Windows 98 boot screen with clouds
-        loadingScreen.style.background = 'linear-gradient(to bottom, #0080ff 0%, #00a0ff 50%, #00c0ff 100%)';
-        loadingText.style.cssText = 'font-size: 28px; font-weight: bold; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); color: white;';
-
-        const logo = loadingContent.querySelector('.windows-logo');
-        logo.style.marginBottom = '30px';
-
-        // Add clouds
-        const clouds = document.createElement('div');
-        clouds.style.cssText = 'position: absolute; top: 20px; left: 0; width: 100%; height: 100%; pointer-events: none;';
-        clouds.innerHTML = `
-            <div style="position: absolute; top: 10%; left: 10%; font-size: 40px; opacity: 0.8; color: white;"><i class="fas fa-cloud"></i></div>
-            <div style="position: absolute; top: 15%; right: 20%; font-size: 50px; opacity: 0.6; color: white;"><i class="fas fa-cloud"></i></div>
-            <div style="position: absolute; top: 60%; left: 30%; font-size: 45px; opacity: 0.7; color: white;"><i class="fas fa-cloud"></i></div>
-            <div style="position: absolute; top: 70%; right: 10%; font-size: 35px; opacity: 0.8; color: white;"><i class="fas fa-cloud"></i></div>
-        `;
-        loadingScreen.appendChild(clouds);
-
-        // Remove driver messages
-        const driverDiv = loadingContent.querySelector('div[style*="bottom: 60px"]');
-        if (driverDiv) driverDiv.remove();
-    }, 7000);
-
-    // Stage 7: Transition to desktop
+    // Transition to desktop after loading
     setTimeout(() => {
-        // Fade out effect
         loadingScreen.style.transition = 'opacity 0.5s ease-out';
         loadingScreen.style.opacity = '0';
 
@@ -126,20 +25,16 @@ function simulateWindows98Boot() {
                 loadingScreen.style.opacity = '1';
                 loadingScreen.style.transition = '';
 
-                // Play the classic Windows 98 startup sound (commented out as requested)
-                // playStartupSound();
-
-                // Initialize desktop with proper Windows 98 sequence
+                // Initialize desktop
                 initializeDesktop();
 
-                // Show "Welcome to Windows 98" dialog after desktop loads
+                // Show welcome dialog
                 setTimeout(() => {
                     showWelcomeDialog();
                 }, 1000);
             }
         }, 500);
-    }, 9000);
-}
+    }, 3000);
 
 function showWelcomeDialog() {
     const welcomeContent = `

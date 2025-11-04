@@ -32,8 +32,7 @@ cp style.css dist/
 cp _redirects dist/
 cp -r css dist/
 cp -r img dist/
-cp -r fantasy dist/
-cp -r jin dist/
+# fantasy/ と jin/ はVuePress専用なのでルートにコピーしない
 cp -r jikken dist/
 cp -r rob dist/
 

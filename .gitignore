@@ -11,6 +11,11 @@ dist/
 slee/docs/.vuepress/dist/
 *.log
 
+# Backup files
+*.bak
+*.bak2
+*.vuepress.bak
+
 # Environment
 .env
 .env.local

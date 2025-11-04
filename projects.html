@@ -1,76 +1,75 @@
-<div class="projects-content">
-    <fieldset>
-        <legend>Featured Projects</legend>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Tech Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="window" style="max-width: 900px; margin: 50px auto;">
+        <div class="title-bar">
+            <div class="title-bar-text">Projects.exe</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close" onclick="window.location.href='/'"></button>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="projects-content">
+                <fieldset>
+                    <legend>Featured Projects</legend>
 
-        <div class="project-item" style="margin-bottom: 16px; padding: 8px; border: 1px solid #c0c0c0;">
-            <div class="field-row">
-                <img src="img/project-icon.svg" alt="Project" style="width: 32px; height: 32px; margin-right: 12px;">
-                <div style="flex: 1;">
-                    <h4 style="margin: 0 0 4px 0;">🚀 Temporal Displacement SDK</h4>
-                    <p style="margin: 0 0 8px 0; font-size: 11px;">A JavaScript library for manipulating the browser's perception of time.</p>
-                    <div class="field-row">
-                        <button onclick="window.open('https://github.com/time-traveler-dev/temporal-sdk', '_blank')">View Code</button>
-                        <button onclick="window.open('#', '_blank')">Live Demo</button>
+                    <div class="project-item" style="margin-bottom: 16px; padding: 8px; border: 1px solid #c0c0c0;">
+                        <div class="field-row">
+                            <img src="img/project-icon.svg" alt="Project" style="width: 32px; height: 32px; margin-right: 12px;" onerror="this.style.display='none'">
+                            <div style="flex: 1;">
+                                <h4 style="margin: 0 0 4px 0;">📚 VuePress Tech Blog</h4>
+                                <p style="margin: 0 0 8px 0; font-size: 11px;">A modern technical blog powered by VuePress with Japanese language support.</p>
+                                <div class="field-row">
+                                    <button onclick="window.location.href='/slee/'">Visit Blog</button>
+                                    <button onclick="window.open('https://github.com/polusiti/tech', '_blank')">View Code</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="project-item" style="margin-bottom: 16px; padding: 8px; border: 1px solid #c0c0c0;">
+                        <div class="field-row">
+                            <img src="img/project-icon.svg" alt="Project" style="width: 32px; height: 32px; margin-right: 12px;" onerror="this.style.display='none'">
+                            <div style="flex: 1;">
+                                <h4 style="margin: 0 0 4px 0;">🎨 Ark Mechanical UI</h4>
+                                <p style="margin: 0 0 8px 0; font-size: 11px;">A mechanical-themed UI experiment with detailed documentation.</p>
+                                <div class="field-row">
+                                    <button onclick="window.location.href='/rob/'">View Demo</button>
+                                    <button onclick="window.location.href='/rob/README.md'">Documentation</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-item" style="margin-bottom: 16px; padding: 8px; border: 1px solid #c0c0c0;">
+                        <div class="field-row">
+                            <img src="img/project-icon.svg" alt="Project" style="width: 32px; height: 32px; margin-right: 12px;" onerror="this.style.display='none'">
+                            <div style="flex: 1;">
+                                <h4 style="margin: 0 0 4px 0;">💻 Windows 98 Desktop</h4>
+                                <p style="margin: 0 0 8px 0; font-size: 11px;">Nostalgic Windows 98 boot sequence and desktop UI recreation.</p>
+                                <div class="field-row">
+                                    <button onclick="window.location.href='/'">Back to Desktop</button>
+                                    <button disabled>Currently Viewing</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div style="margin-top: 16px; text-align: center;">
+                    <button onclick="window.location.href='/'">Back to Desktop</button>
+                    <button onclick="window.location.href='/about.html'">About</button>
                 </div>
             </div>
         </div>
-
-        <div class="project-item" style="margin-bottom: 16px; padding: 8px; border: 1px solid #c0c0c0;">
-            <div class="field-row">
-                <img src="img/project-icon.svg" alt="Project" style="width: 32px; height: 32px; margin-right: 12px;">
-                <div style="flex: 1;">
-                    <h4 style="margin: 0 0 4px 0;">🚗 DeLorean.js</h4>
-                    <p style="margin: 0 0 8px 0; font-size: 11px;">A framework for building time-traveling single-page applications.</p>
-                    <div class="field-row">
-                        <button onclick="window.open('https://github.com/time-traveler-dev/delorean-js', '_blank')">View Code</button>
-                        <button onclick="window.open('#', '_blank')">Live Demo</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-item" style="margin-bottom: 16px; padding: 8px; border: 1px solid #c0c0c0;">
-            <div class="field-row">
-                <img src="img/project-icon.svg" alt="Project" style="width: 32px; height: 32px; margin-right: 12px;">
-                <div style="flex: 1;">
-                    <h4 style="margin: 0 0 4px 0;">💬 Chrono-Chat</h4>
-                    <p style="margin: 0 0 8px 0; font-size: 11px;">A real-time chat application that allows you to talk to your past and future self.</p>
-                    <div class="field-row">
-                        <button onclick="window.open('https://github.com/time-traveler-dev/chrono-chat', '_blank')">View Code</button>
-                        <button onclick="window.open('#', '_blank')">Live Demo</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="project-item" style="margin-bottom: 16px; padding: 8px; border: 1px solid #c0c0c0;">
-            <div class="field-row">
-                <img src="img/project-icon.svg" alt="Project" style="width: 32px; height: 32px; margin-right: 12px;">
-                <div style="flex: 1;">
-                    <h4 style="margin: 0 0 4px 0;">💥 Paradox Engine</h4>
-                    <p style="margin: 0 0 8px 0; font-size: 11px;">A physics engine for simulating temporal paradoxes in the browser.</p>
-                    <div class="field-row">
-                        <button onclick="window.open('https://github.com/time-traveler-dev/paradox-engine', '_blank')">View Code</button>
-                        <button onclick="window.open('#', '_blank')">Live Demo</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-
-    <fieldset style="margin-top: 16px;">
-        <legend>Technologies Used</legend>
-        <div class="field-row-stacked">
-            <label>💻 Languages: Quantum JavaScript, HTML5, CSS3, COBOL</label>
-            <label>🎨 Frontend: React, Vue.js, Canvas API</label>
-            <label>⚙️ Backend: Node.js, Express, Flux Capacitor</label>
-            <label>🗄️ Database: TemporalDB, PostgreSQL</label>
-            <label>☁️ Cloud: AWS, Vercel, The Void</label>
-        </div>
-    </fieldset>
-
-    <div style="margin-top: 16px; text-align: center;">
-        <button onclick="window.open('https://github.com/time-traveler-dev', '_blank')">View All Projects</button>
     </div>
-</div>
+</body>
+</html>

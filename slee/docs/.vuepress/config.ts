@@ -7,7 +7,7 @@ import htmlModules from './config/htmlModules'
 import components from './config/import-components'
 import nav from './nav-config'
 
-const DOMAIN_NAME = 'wuxin0011.github.io'
+const DOMAIN_NAME = 'tech.allfrom0.top'
 const WEB_SITE = `https://${DOMAIN_NAME}`
 const IS_DEV = process.env.NODE_ENV == 'development'
 
@@ -26,7 +26,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         nav: nav,
         sidebarDepth: 2,
         logo: '/picgo/icon.png',
-        repo: 'wuxin0011/wuxin0011.github.io',
+        repo: 'polusiti/tech',
         searchMaxSuggestions: 10,
         lastUpdated: '上次更新',
         docsDir: 'docs',
@@ -104,7 +104,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         footer: {
             createYear: 2020,
             copyrightInfo:
-                'wuxin0011 | <a href="https://github.com/wuxin0011/wuxin0011.github.io" target="_blank">MIT License</a>',
+                'wuxin0011 | <a href="https://github.com/polusiti/tech" target="_blank">MIT License</a>',
         },
 
         extendFrontmatter: {

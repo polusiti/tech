@@ -1,2 +1,4 @@
-# SPAリダイレクト設定 - ループ回避
-/slee /slee/index.html 200
+# Cloudflare Pages Redirects for VuePress SPA
+
+# VuePress SPA fallback - 404 pages redirect to index.html
+/*    /index.html   200

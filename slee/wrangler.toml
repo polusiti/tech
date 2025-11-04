@@ -1,6 +1,12 @@
-name = "wuxin-recreation"
-compatibility_date = "2023-12-01"
-main = "slee/index.html"
+name = "tech-blog"
+compatibility_date = "2024-01-01"
+
+# Cloudflare Pages用設定
+# Pages Dashboard で以下を設定:
+# Build command: cd slee && npm run build
+# Build output directory: slee/docs/.vuepress/dist
+# Root directory: (空白)
 
 [env.production]
-compatibility_date = "2023-12-01"
+name = "tech-blog-production"
+compatibility_date = "2024-01-01"

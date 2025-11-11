@@ -258,11 +258,12 @@ export default {
             drawRili();
 
             // Canvas奇妙的剪切蒙版实现
+            const basePath = '/slee/';
             var screenMask = new Image();
-            screenMask.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/Screenmask.png';
+            screenMask.src = basePath + 'fantasy/Screenmask.png';
 
             var screen = new Image();
-            screen.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/screen.png';
+            screen.src = basePath + 'fantasy/screen.png';
 
             var iv = setInterval(() => {
                 if (screen.complete && screenMask.complete) {
@@ -290,26 +291,26 @@ export default {
 
             // 加载图片
             var bg = new Image();
-            bg.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/bg.png';
+            bg.src = basePath + 'fantasy/bg.png';
 
             var mask = new Image();
-            mask.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/mask.png';
+            mask.src = basePath + 'fantasy/mask.png';
 
             var light = new Image();
-            light.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/light.png';
+            light.src = basePath + 'fantasy/light.png';
 
             var caidai = new Image();
-            caidai.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/caidai.png';
+            caidai.src = basePath + 'fantasy/caidai.png';
 
             // /fantasy/Screenmask.png
             var two = new Image();
-            two.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/22.png';
+            two.src = basePath + 'fantasy/22.png';
 
             var screenLight = new Image();
-            screenLight.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/screenLight.png';
+            screenLight.src = basePath + 'fantasy/screenLight.png';
 
             var phoneLight = new Image();
-            phoneLight.src = 'https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/phoneLight.png';
+            phoneLight.src = basePath + 'fantasy/phoneLight.png';
 
             var phoneText = JSON.parse(
                 '[{"time":0,"text":"凌晨啦!"},{"time":6,"text":"早上好!"},{"time":8,"text":"上午好!"},{"time":11,"text":"你吃了吗"},{"time":13,"text":"下午好鸭!"},{"time":16,"text":"傍晚咯!"},{"time":19,"text":"晚安!"}]'

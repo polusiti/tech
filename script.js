@@ -35,6 +35,7 @@ function simulateWindows98Boot() {
             }
         }, 500);
     }, 3000);
+}
 
 function showWelcomeDialog() {
     const welcomeContent = `

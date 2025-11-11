@@ -32,9 +32,10 @@ cp style.css dist/
 cp _redirects dist/
 cp -r css dist/
 cp -r img dist/
-# fantasy/ と jin/ はVuePress専用なのでルートにコピーしない
 cp -r jikken dist/
+cp -r jin dist/
 cp -r rob dist/
+cp NAVIGATION_MAP.md dist/ 2>/dev/null || true
 
 # Copy VuePress build output to /slee path
 echo "📋 Copying VuePress build to /slee..."

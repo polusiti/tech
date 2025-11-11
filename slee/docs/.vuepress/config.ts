@@ -78,6 +78,11 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
                     title: 'GitHub',
                     link: 'https://github.com/polusiti/tech',
                 },
+                {
+                    iconClass: 'fas fa-home',
+                    title: 'デスクトップに戻る',
+                    link: '/',
+                },
             ],
         },
 

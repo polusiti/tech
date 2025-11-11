@@ -351,9 +351,9 @@ async function fetchProjectsContent() {
 }
 
 function initializeDesktopIcons() {
-    // Make desktop icons draggable
+    // Desktop icons are now static (no dragging allowed)
     document.querySelectorAll('.desktop-icon').forEach(icon => {
-        makeIconDraggable(icon);
+        // makeIconDraggable(icon); // Disabled - icons stay in fixed positions
         addIconInteractions(icon);
     });
 }

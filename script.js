@@ -8,33 +8,52 @@ function simulateWindows98Boot() {
     const desktop = document.getElementById('desktop');
     const loadingProgress = loadingScreen.querySelector('.loading-progress');
 
+    console.log('Boot sequence started');
+    console.log('Loading screen:', loadingScreen);
+    console.log('Desktop:', desktop);
+    console.log('Loading progress:', loadingProgress);
+
     // Simple boot sequence
     setTimeout(() => {
-        loadingProgress.style.width = '100%';
+        if (loadingProgress) {
+            loadingProgress.style.width = '100%';
+            console.log('Progress bar filled');
+        }
     }, 100);
 
-    // Transition to desktop after loading
+    // Transition to desktop after loading (reduced from 3000ms to 1500ms for testing)
     setTimeout(() => {
-        loadingScreen.style.transition = 'opacity 0.5s ease-out';
-        loadingScreen.style.opacity = '0';
+        console.log('Starting transition to desktop');
+        if (loadingScreen) {
+            loadingScreen.style.transition = 'opacity 0.5s ease-out';
+            loadingScreen.style.opacity = '0';
+        }
 
         setTimeout(() => {
             if (loadingScreen && desktop) {
+                console.log('Hiding loading screen, showing desktop');
                 loadingScreen.style.display = 'none';
                 desktop.style.display = 'block';
                 loadingScreen.style.opacity = '1';
                 loadingScreen.style.transition = '';
 
                 // Initialize desktop
-                initializeDesktop();
+                try {
+                    initializeDesktop();
+                    console.log('Desktop initialized successfully');
+                } catch (error) {
+                    console.error('Error initializing desktop:', error);
+                }
 
-                // Show welcome dialog
-                setTimeout(() => {
-                    showWelcomeDialog();
-                }, 1000);
+                // Show welcome dialog (optional - comment out for faster loading)
+                // setTimeout(() => {
+                //     showWelcomeDialog();
+                // }, 1000);
+            } else {
+                console.error('Loading screen or desktop element not found!');
             }
         }, 500);
-    }, 3000);
+    }, 1500);
 }
 
 function showWelcomeDialog() {

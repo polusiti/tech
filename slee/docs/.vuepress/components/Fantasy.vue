@@ -28,6 +28,7 @@ export default {
                 return;
             }
             var ctx = cvs.getContext("2d");
+            const resolveAsset = (path) => (this.$withBase ? this.$withBase(path) : path);
 
             var display = document.getElementById("display");
             var displayCtx = display.getContext("2d");
@@ -258,12 +259,11 @@ export default {
             drawRili();
 
             // Canvas奇妙的剪切蒙版实现
-            const basePath = '/slee/';
             var screenMask = new Image();
-            screenMask.src = basePath + 'fantasy/Screenmask.png';
+            screenMask.src = resolveAsset("/fantasy/Screenmask.png");
 
             var screen = new Image();
-            screen.src = basePath + 'fantasy/screen.png';
+            screen.src = resolveAsset("/fantasy/screen.png");
 
             var iv = setInterval(() => {
                 if (screen.complete && screenMask.complete) {
@@ -291,26 +291,26 @@ export default {
 
             // 加载图片
             var bg = new Image();
-            bg.src = basePath + 'fantasy/bg.png';
+            bg.src = resolveAsset("/fantasy/bg.png");
 
             var mask = new Image();
-            mask.src = basePath + 'fantasy/mask.png';
+            mask.src = resolveAsset("/fantasy/mask.png");
 
             var light = new Image();
-            light.src = basePath + 'fantasy/light.png';
+            light.src = resolveAsset("/fantasy/light.png");
 
             var caidai = new Image();
-            caidai.src = basePath + 'fantasy/caidai.png';
+            caidai.src = resolveAsset("/fantasy/caidai.png");
 
             // /fantasy/Screenmask.png
             var two = new Image();
-            two.src = basePath + 'fantasy/22.png';
+            two.src = resolveAsset("/fantasy/22.png");
 
             var screenLight = new Image();
-            screenLight.src = basePath + 'fantasy/screenLight.png';
+            screenLight.src = resolveAsset("/fantasy/screenLight.png");
 
             var phoneLight = new Image();
-            phoneLight.src = basePath + 'fantasy/phoneLight.png';
+            phoneLight.src = resolveAsset("/fantasy/phoneLight.png");
 
             var phoneText = JSON.parse(
                 '[{"time":0,"text":"凌晨啦!"},{"time":6,"text":"早上好!"},{"time":8,"text":"上午好!"},{"time":11,"text":"你吃了吗"},{"time":13,"text":"下午好鸭!"},{"time":16,"text":"傍晚咯!"},{"time":19,"text":"晚安!"}]'

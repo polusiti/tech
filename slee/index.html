@@ -8,13 +8,13 @@
   <link rel="icon" href="/tech/slee/icon/logo.ico">
 
   <!-- Iconfont CSS -->
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_3114978_qe0b39no76.css">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_3114978_qe0b39no76.css">
 
   <!-- VuePress CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vuepress/theme-default@1.9.5/lib/styles/index.css">
 
   <!-- APlayer CSS -->
-  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
 
   <style>
     /* 基本スタイル */
@@ -184,14 +184,14 @@
       z-index: 1000;
     }
 
-    /* Fantasyコンポーネント正確なスタイル（VuePressからの正解） */
+    /* Fantasyコンポーネント正確なスタイル（HTTrack正解） */
     .global-ui .fantasy {
       position: fixed;
       top: 0;
       height: 100vh;
       width: 100%;
       z-index: -9;
-      pointer-events: auto;
+      pointer-events: none;
     }
 
     .hidden {
@@ -475,8 +475,8 @@
   </footer>
 
   <!-- APlayer JS -->
-  <script src="https://cdn.bootcdn.net/ajax/libs/aplayer/1.10.1/APlayer.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.bootcdn.net/ajax/libs/meting/2.0.1/Meting.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script>
     // ========== Fantasyコンポーネント改良版実装 ==========
@@ -496,18 +496,18 @@
       var rili = document.getElementById("rili");
       var riliCtx = rili.getContext("2d");
 
-      // R2画像リソース設定
+      // VuePress画像リソース設定（すべて相対パス）
       const fantasyImages = {
         main: "/fantasy/22.png",
         bg: "/fantasy/bg.png",
         caidai: "/fantasy/caidai.png",
         light: "/fantasy/light.png",
         mask: "/fantasy/mask.png",
-        phoneLight: "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/phoneLight.png",
-        screen: "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/screen.png",
-        screenborder: "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/screenborder.png",
-        screenLight: "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/screenLight.png",
-        screenMask: "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/Screenmask.png"
+        phoneLight: "/fantasy/phoneLight.png",
+        screen: "/fantasy/screen.png",
+        screenborder: "/fantasy/screenborder.png",
+        screenLight: "/fantasy/screenLight.png",
+        screenMask: "/fantasy/screenMask.png"
       };
 
       var songInfo = {};

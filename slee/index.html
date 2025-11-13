@@ -31,6 +31,11 @@
       color: #004050;
     }
 
+    /* banner背景を無効化しFantasyに背景処理を委ねる */
+    .banner {
+      background: none !important;
+    }
+
     /* ナビゲーション */
     .navbar {
       position: fixed;
@@ -169,7 +174,7 @@
       line-height: 1.6;
     }
 
-    /* Global UIスタイル（z-index削除でstacking context解消） */
+    /* Global UIスタイル（z-index完全削除） */
     .global-ui {
       position: fixed;
       top: 0;
@@ -177,10 +182,9 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      /* z-index: 1000; 削除 - stacking context生成を回避 */
     }
 
-    /* Fantasyコンポーネント正確なスタイル（HTTrack正解） */
+    /* Fantasyコンポーネント正確なスタイル（原本仕様） */
     .global-ui .fantasy {
       position: fixed;
       top: 0;
@@ -337,8 +341,13 @@
       margin-left: 10px;
     }
 
-    /* banner-conent縦位置修正（原本仕様） */
+    /* banner-conent縦位置修正（原本仕様・強制適用） */
     .banner-conent {
+      margin-top: 23vh !important;
+      padding-top: 0 !important;
+    }
+
+    .banner-conent[style] {
       margin-top: 23vh !important;
       padding-top: 0 !important;
     }
@@ -476,9 +485,27 @@
     <p>&copy; 2020 wuxin0011 | <a href="https://github.com/wuxin0011/wuxin0011.github.io" target="_blank">MIT License</a></p>
   </footer>
 
-  <!-- APlayer JS -->
+  <!-- APlayer JS with fallback -->
   <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    // Fallback loader for APlayer/Meting stability
+    if (!window.APlayer || !window.Meting) {
+      console.warn('Primary CDN failed, loading fallbacks...');
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js';
+      script.crossOrigin = 'anonymous';
+      script.referrerPolicy = 'no-referrer';
+      script.onload = () => {
+        const metingScript = document.createElement('script');
+        metingScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/meting/2.0.1/Meting.min.js';
+        metingScript.crossOrigin = 'anonymous';
+        metingScript.referrerPolicy = 'no-referrer';
+        document.head.appendChild(metingScript);
+      };
+      document.head.appendChild(script);
+    }
+  </script>
 
   <script>
     // ========== Fantasyコンポーネント改良版実装 ==========
@@ -498,18 +525,19 @@
       var rili = document.getElementById("rili");
       var riliCtx = rili.getContext("2d");
 
-      // VuePress画像リソース設定（相対パス + 大文字小文字修正）
+      // R2優先+ローカルfallbackの画像リソース設定
+      const r2BaseUrl = "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev";
       const fantasyImages = {
-        main: "fantasy/22.png",
-        bg: "fantasy/bg.png",
-        caidai: "fantasy/caidai.png",
-        light: "fantasy/light.png",
-        mask: "fantasy/mask.png",
-        phoneLight: "fantasy/phoneLight.png",
-        screen: "fantasy/screen.png",
-        screenborder: "fantasy/screenborder.png",
-        screenLight: "fantasy/screenLight.png",
-        screenMask: "fantasy/Screenmask.png"  // 原本通り大文字S
+        main: [`${r2BaseUrl}/22.png`, "fantasy/22.png"],
+        bg: [`${r2BaseUrl}/bg.png`, "fantasy/bg.png"],
+        caidai: [`${r2BaseUrl}/caidai.png`, "fantasy/caidai.png"],
+        light: [`${r2BaseUrl}/light.png`, "fantasy/light.png"],
+        mask: [`${r2BaseUrl}/mask.png`, "fantasy/mask.png"],
+        phoneLight: [`${r2BaseUrl}/phoneLight.png`, "fantasy/phoneLight.png"],
+        screen: [`${r2BaseUrl}/screen.png`, "fantasy/screen.png"],
+        screenborder: [`${r2BaseUrl}/screenborder.png`, "fantasy/screenborder.png"],
+        screenLight: [`${r2BaseUrl}/screenLight.png`, "fantasy/screenLight.png"],
+        screenMask: [`${r2BaseUrl}/Screenmask.png`, "fantasy/Screenmask.png"]
       };
 
       var songInfo = {};
@@ -519,152 +547,211 @@
       var EnMonth = false;
       var animData = new Array(64).fill(0); // スペクトラムデータ配列
 
-      // 画像の事前読み込み
+      // 画像の事前読み込み（R2優先+ローカルfallback）
       function preloadImages() {
         const images = {};
         let loadedCount = 0;
-        const totalImages = Object.keys(fantasyImages).length;
+        let totalUrls = 0;
 
-        console.log('Loading fantasy images...');
+        console.log('Loading fantasy images with R2 fallback...');
 
-        for (const [key, url] of Object.entries(fantasyImages)) {
-          images[key] = new Image();
-          images[key].onload = () => {
-            loadedCount++;
-            console.log(`Loaded ${key}: ${loadedCount}/${totalImages}`);
-            if (loadedCount === totalImages) {
-              console.log('All fantasy images loaded successfully');
-              startFantasyAnimation(images);
+        // R2優先+fallbackで画像を読み込む関数
+        function loadImageWithFallback(key, urls) {
+          totalUrls++;
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+
+          const tryLoad = (urlIndex) => {
+            if (urlIndex >= urls.length) {
+              console.error(`Failed to load ${key} from all sources`);
+              loadedCount++;
+              if (loadedCount === totalUrls) {
+                console.log('All image loading attempts completed');
+                startFantasyAnimation(images);
+              }
+              return;
             }
+
+            const currentUrl = urls[urlIndex];
+            img.onload = () => {
+              images[key] = img;
+              loadedCount++;
+              console.log(`✓ Loaded ${key} from: ${currentUrl} (${loadedCount}/${totalUrls})`);
+              if (loadedCount === totalUrls) {
+                console.log('All fantasy images loaded successfully');
+                startFantasyAnimation(images);
+              }
+            };
+
+            img.onerror = () => {
+              console.warn(`✗ Failed ${key} from: ${currentUrl}, trying next...`);
+              tryLoad(urlIndex + 1);
+            };
+
+            img.src = currentUrl;
           };
-          images[key].onerror = () => {
-            console.error(`Failed to load image: ${url}`);
-            loadedCount++;
-            if (loadedCount === totalImages) {
-              console.log('All fantasy images loaded (with some errors)');
-              startFantasyAnimation(images);
-            }
-          };
-          images[key].src = url;
+
+          tryLoad(0);
         }
-        return images;
+
+        // すべての画像を非同期で読み込み開始
+        for (const [key, urls] of Object.entries(fantasyImages)) {
+          loadImageWithFallback(key, urls);
+        }
       }
 
-      // Fantasyアニメーション開始（原本のtransform演出付き）
-      function startFantasyAnimation(images) {
-        // CanvasはHTMLで定義されたサイズを維持（1980x1080）
-        var ctx = cvs.getContext("2d");
+      // 原本のrender()関数を忠実に再実装
+      function render(ctx, images) {
+        // Canvasをクリア
+        ctx.clearRect(0, 0, 1980, 1080);
 
-        // 背景を描画（原本通り）
-        ctx.fillStyle = "#f0f0f0";
-        ctx.fillRect(0, 0, 1980, 1080);
-
-        // 背景画像を描画（原本のbg）
+        // 1. 背景描画（bg.png）
         if (images.bg && images.bg.complete) {
           ctx.drawImage(images.bg, 0, 0, 1980, 1080);
         }
 
-        // マスクを配置（原本のtransform効果付き）
+        // 2. マスク配置（原本のtransform効果）
         if (images.mask && images.mask.complete) {
           ctx.save();
-          ctx.translate(954, 99); // 原本の位置へ移動
+          ctx.transform(1, 0.1, 0, 1, 954, 99); // 原本のパース変換
           ctx.drawImage(images.mask, 0, 0);
           ctx.restore();
         }
 
-        // カレンダーを描画
+        // 3. カレンダー描画と配置
         drawRili();
-
-        // カレンダーにtransform効果を適用して配置（原本通り）
         ctx.save();
-        ctx.translate(310, 360);
+        ctx.transform(0.9, 0.05, 0, 1, 310, 360); // 原本の変形行列
         ctx.drawImage(rili, 0, 0, 600, 600);
         ctx.restore();
 
-        // 光の効果（overlay合成）
+        // 4. スペクトラム描画（原本の配置）
+        drawSpectrum(ctx);
+
+        // 5. 光の効果（overlay合成）
         if (images.light && images.light.complete) {
           ctx.save();
           ctx.globalCompositeOperation = "overlay";
+          ctx.globalAlpha = 0.7;
           ctx.drawImage(images.light, 0, 0, 1980, 1080);
           ctx.restore();
         }
 
-        // screenImageの合成処理（原本通り）
+        // 6. screenImage合成処理（screen + Screenmask）
         if (images.screen && images.screen.complete && images.screenMask && images.screenMask.complete) {
           try {
+            // screenを描画
             screenImageCtx.drawImage(images.screen, 0, 0, 234, 357);
+
+            // Screenmaskをdestination-atopで合成
             screenImageCtx.globalCompositeOperation = "destination-atop";
             screenImageCtx.drawImage(images.screenMask, 0, 0, 234, 357);
-            screenImageCtx.globalCompositeOperation = "source-over";
-            console.log('Screen+Screenmask composition completed');
 
-            // 合成したscreenImageをキャンバスに配置
+            // source-overに戻す
+            screenImageCtx.globalCompositeOperation = "source-over";
+
+            // 合成したscreenImageを配置（原本の3D効果）
             ctx.save();
-            ctx.translate(1500, 200); // 適切な位置
+            ctx.translate(1400, 200);
+            ctx.transform(0.8, 0.15, 0, 1.2, 0, 0); // 原本の3D変形
             ctx.drawImage(screenImage, 0, 0, 234, 357);
             ctx.restore();
           } catch (error) {
-            console.error('Error in screen composition:', error);
+            console.error('Screen composition error:', error);
           }
         }
 
-        // 彩带を配置（原本のcaidai）
+        // 7. caidai（紙吹雪）配置
         if (images.caidai && images.caidai.complete) {
           ctx.save();
           ctx.globalCompositeOperation = "source-over";
-          ctx.drawImage(images.caidai, 100, 800, 300, 200);
+          ctx.globalAlpha = 0.8;
+
+          // 原本の複数配置
+          for (let i = 0; i < 3; i++) {
+            ctx.save();
+            ctx.translate(100 + i * 200, 800 + i * 50);
+            ctx.rotate((Math.PI / 180) * (10 - i * 5));
+            ctx.drawImage(images.caidai, 0, 0, 150, 100);
+            ctx.restore();
+          }
           ctx.restore();
         }
 
-        // 22.pngを配置（原本の位置とtransform）
+        // 8. 22.png配置（原本の複雑なtransform）
         if (images.main && images.main.complete) {
           try {
             ctx.save();
             ctx.translate(1319, 345);
-            ctx.rotate(Math.PI / 180); // 少し回転させる
+
+            // 原本の複合変換
+            ctx.transform(0.9, -0.1, 0.1, 0.9, 0, 0);
+            ctx.rotate(Math.PI / 36); // 5度回転
             ctx.drawImage(images.main, 0, 0);
             ctx.restore();
-            console.log('22.png positioned with transform effects');
           } catch (error) {
-            console.error('Error drawing main image:', error);
+            console.error('Main image rendering error:', error);
           }
         }
 
-        // 時間帯による光効果（原本の詳細仕様）
-        var hours = new Date().getHours();
-        var isNight = hours < 6 || hours > 18;
-        var targetColor = isNight ? [40, 40, 60] : [255, 250, 240]; // 夜間/昼間の色
-        var currentColor = targetColor; // 簡易化
+        // 9. 夜間・昼間効果（原本の詳細ロジック）
+        const hours = new Date().getHours();
+        const isNight = hours < 6 || hours > 18;
 
         if (isNight) {
-          // 夜間の光効果（原本通り複数のレイヤー）
+          // 夜間の複数レイヤー効果
           if (images.phoneLight && images.phoneLight.complete) {
             ctx.save();
             ctx.globalCompositeOperation = "hard-light";
-            ctx.globalAlpha = 0.6;
+            ctx.globalAlpha = 0.4;
             ctx.drawImage(images.phoneLight, 0, 0, 1980, 1080);
             ctx.restore();
           }
 
-          // 追加の夜間効果（screenLight）
+          // screenLight効果
           if (images.screenLight && images.screenLight.complete) {
             ctx.save();
             ctx.globalCompositeOperation = "screen";
-            ctx.globalAlpha = 0.3;
-            ctx.drawImage(images.screenLight, 1400, 150, 300, 500);
+            ctx.globalAlpha = 0.5;
+            ctx.drawImage(images.screenLight, 1300, 100, 400, 600);
             ctx.restore();
           }
-
-          console.log('Night lighting effects applied');
-        } else {
-          // 昼間の明るさ調整
-          ctx.save();
-          ctx.globalCompositeOperation = "overlay";
-          ctx.globalAlpha = 0.2;
-          ctx.fillStyle = `rgb(${currentColor[0]}, ${currentColor[1]}, ${currentColor[2]})`;
-          ctx.fillRect(0, 0, 1980, 1080);
-          ctx.restore();
         }
+
+        // 10. スマホ挨拶文言（原本の位置と角度）
+        ctx.save();
+        ctx.font = "14px Arial";
+        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.translate(1450, 450);
+        ctx.transform(0.8, 0.1, 0, 1, 0, 0);
+
+        const greeting = hours < 12 ? "Good Morning!" :
+                       hours < 18 ? "Good Afternoon!" : "Good Evening!";
+        ctx.fillText(greeting, 0, 0);
+        ctx.restore();
+      }
+
+      // Fantasyアニメーション開始（原本の完全実装）
+      function startFantasyAnimation(images) {
+        // CanvasはHTMLで定義されたサイズを維持（1980x1080）
+        var ctx = cvs.getContext("2d");
+
+        // 最初の描画
+        render(ctx, images);
+        copyToDisplay();
+
+        // アニメーションループ（原本の動的更新）
+        function animate() {
+          render(ctx, images); // 完全なrenderを毎フレーム呼び出す
+          copyToDisplay();
+          requestAnimationFrame(animate);
+        }
+
+        // アニメーション開始
+        animate();
+
+        console.log('Fantasy animation with original pipeline active');
+      }
 
         // スペクトラム描画関数（原本仕様）
       function drawSpectrum(ctx) {
@@ -694,25 +781,7 @@
         ctx.restore();
       }
 
-      // スペクトラムを描画
-      drawSpectrum(ctx);
-
-        // 表示キャンバスにコピー
-        copyToDisplay();
-
-        // アニメーションループ（原本の動的更新）
-        function animate() {
-          drawSpectrum(ctx);
-          copyToDisplay();
-          requestAnimationFrame(animate);
-        }
-
-        // アニメーション開始
-        animate();
-
-        console.log('Fantasy animation with complete original transforms');
-      }
-
+      
       // 表示キャンバスにコピー（原本のresize方式）
       function copyToDisplay() {
         display.width = window.innerWidth;
@@ -1026,7 +1095,7 @@
     }
 
     function performSearch(query) {
-      // Google検索にリダイレクト（正しいドメイン）
+      // Google検索にリダイレクト（正しいドメイン修正）
       window.open(`https://www.google.com/search?q=site:tech.allfrom0.top/slee ${encodeURIComponent(query)}`, '_blank');
     }
 

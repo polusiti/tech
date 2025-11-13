@@ -260,10 +260,10 @@ export default {
 
             // Canvas奇妙的剪切蒙版实现
             var screenMask = new Image();
-            screenMask.src = resolveAsset("/fantasy/Screenmask.png");
+            screenMask.src = "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/Screenmask.png";
 
             var screen = new Image();
-            screen.src = resolveAsset("/fantasy/screen.png");
+            screen.src = "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/screen.png";
 
             var iv = setInterval(() => {
                 if (screen.complete && screenMask.complete) {
@@ -291,26 +291,26 @@ export default {
 
             // 加载图片
             var bg = new Image();
-            bg.src = resolveAsset("/fantasy/bg.png");
+            bg.src = "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/bg%20(1).png";
 
             var mask = new Image();
-            mask.src = resolveAsset("/fantasy/mask.png");
+            mask.src = "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/mask.png";
 
             var light = new Image();
-            light.src = resolveAsset("/fantasy/light.png");
+            light.src = "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/light.png";
 
             var caidai = new Image();
-            caidai.src = resolveAsset("/fantasy/caidai.png");
+            caidai.src = "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/caidai.png";
 
             // /fantasy/Screenmask.png
             var two = new Image();
-            two.src = resolveAsset("/fantasy/22.png");
+            two.src = "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/22.png";
 
             var screenLight = new Image();
-            screenLight.src = resolveAsset("/fantasy/screenLight.png");
+            screenLight.src = "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/screenLight.png";
 
             var phoneLight = new Image();
-            phoneLight.src = resolveAsset("/fantasy/phoneLight.png");
+            phoneLight.src = "https://pub-d59d6e46c3154423956f648f8df909ae.r2.dev/phoneLight.png";
 
             var phoneText = JSON.parse(
                 '[{"time":0,"text":"凌晨啦!"},{"time":6,"text":"早上好!"},{"time":8,"text":"上午好!"},{"time":11,"text":"你吃了吗"},{"time":13,"text":"下午好鸭!"},{"time":16,"text":"傍晚咯!"},{"time":19,"text":"晚安!"}]'

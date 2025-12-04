@@ -10,6 +10,31 @@ body {
     background: #000;
 }
 
+/* Windows 98風 デスクトップボタン */
+.desktop-btn {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    width: 32px;
+    height: 26px;
+    background: #c0c0c0;
+    border: 2px solid #fff;
+    border-right-color: #808080;
+    border-bottom-color: #808080;
+    box-shadow: inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 #7a7a7a;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+    z-index: 1000;
+}
+
+.desktop-btn:active {
+    border: 2px solid #808080;
+    border-right-color: #fff;
+    border-bottom-color: #fff;
+    box-shadow: inset 1px 1px 0 #7a7a7a, inset -1px -1px 0 #dfdfdf;
+}
+
 /* 位置とスケールを変数で一元管理 */
 :root {
     /* 既存の通常値（=大きい画面） */
@@ -52,13 +77,14 @@ body {
     letter-spacing: 2px;
     text-align: center;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    transform: translate(7px, -2px); /* 右へ7px（累積）、上へ2px */
 }
 
 /* 右下のカレンダー */
 .calendar-widget {
     position: absolute;
-    right: var(--calendar-right);
-    bottom: var(--calendar-bottom);
+    right: calc(var(--calendar-right) + 8px); /* これまで7px + 追加1px 左へ */
+    bottom: calc(var(--calendar-bottom) + 3px); /* これまで1px + 追加2px 上へ */
     z-index: 10;
     transform: scale(var(--calendar-scale));
     transform-origin: bottom right;

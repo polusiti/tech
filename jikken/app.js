@@ -105,7 +105,7 @@ class MikuManager {
                     "width": 150,
                     "height": 300,
                     "hOffset": 0,
-                    "vOffset": -20
+                    "vOffset": 0
                 },
                 "mobile": {
                     "show": true,

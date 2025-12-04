@@ -179,11 +179,11 @@ class FlyingFishRenderer {
     getThemeColor() {
         const body = document.body;
         if (body.classList.contains('dark-mode')) {
-            return 'hsl(220, 20%, 30%)'; // Dark blue for dark mode
+            return 'rgba(120, 235, 255, 0.85)'; // bright cyan for dark backgrounds
         } else if (body.classList.contains('sepia-mode')) {
-            return 'hsl(30, 30%, 70%)'; // Sepia for sepia mode
+            return 'rgba(255, 210, 160, 0.85)'; // warm glow for sepia
         } else {
-            return 'hsl(0, 0%, 95%)'; // Light gray for light mode
+            return 'rgba(90, 150, 255, 0.8)'; // vivid blue for light mode
         }
     }
 
@@ -495,3 +495,10 @@ window.toggleAdvancedFish = function() {
         window.advancedFishAnimation.toggle();
     }
 };
+
+// すぐに描画を開始して魚を見やすくする
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.advancedFishAnimation) {
+        window.advancedFishAnimation.start();
+    }
+});

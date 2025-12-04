@@ -191,7 +191,17 @@
           const bannerColor = document.querySelector('.banner-color');
           if (bannerColor) bannerColor.remove();
 
-          initFantasy();
+          // Vue appのマウント完了を待ち、canvas要素が見つかるまでリトライ
+          let retryCount = 0;
+          const tryInit = () => {
+            const cvs = document.getElementById('cvs');
+            if (cvs) {
+              initFantasy();
+            } else if (retryCount++ < 20) {
+              setTimeout(tryInit, 100);
+            }
+          };
+          tryInit();
         });
 
         function preloadImages(map) {
